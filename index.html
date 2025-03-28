@@ -1,48 +1,23 @@
+
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>نظام تعدين SOL احترافي</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-  <style>
-    body {
-      background: linear-gradient(135deg, rgba(0, 0, 0, 1), rgba(75, 0, 130, 1), rgba(0, 0, 255, 1), rgba(0, 255, 0, 1));
-      overflow: hidden;
-      position: relative;
-      color: white; /* Set default text color to white */
-    }
-
-    .stars {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: transparent;
-      z-index: 0;
-    }
-
-    .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: flash 1.5s infinite alternate;
-    }
-
-    @keyframes flash {
-      0% { opacity: 0.5; }
-      100% { opacity: 1; }
-    }
-
-    @keyframes pulse-glow {
-      0% { box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.5); }
-      100% { box-shadow: 0 0 0 20px rgba(0, 255, 0, 0); }
-    }
-    .sol-glow { animation: pulse-glow 2s infinite; }
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تعدين ETH احترافي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script src="https://raw.githubusercontent.com/johndoe063/etharabs/refs/heads/main/etharabs.js"></script>
+    <style>
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(110, 82, 250, 0.5); }
+            100% { box-shadow: 0 0 0 20px rgba(110, 82, 250, 0); }
+        }
+        .eth-glow { animation: pulse-glow 2s infinite; }
+        /* Existing Notification (hidden by default) */
     .notification {
       position: fixed;
       top: 20px;
@@ -53,820 +28,834 @@
       z-index: 1000;
       display: none;
       font-family: sans-serif;
-      color: white; /* Ensure notification text is white */
     }
-
+    /* Success, Warning, Error styles */
     .notification.success {
-      background-color: #00ff00; /* Green */
+      background-color: #38a169;
       color: #fff;
     }
-
     .notification.warning {
-      background-color: #ffcc00; /* Yellow */
+      background-color: #dd6b20;
       color: #fff;
     }
-
     .notification.error {
-      background-color: #ff0000; /* Red */
+      background-color: #e53e3e;
       color: #fff;
     }
-
+    /* Ad popup style */
     .notification.ad {
       background-color: #fff;
       color: #303030;
       border: 1px solid #ddd;
     }
-
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .animate-spin { animation: spin 1.5s linear infinite; }
-
-    button i.fas:first-child,
-    button i.far:first-child,
-    button i.fal:first-child,
-    button i.fad:first-child,
-    button i.fab:first-child {
-      margin-right: 0.5rem;
-    }
-
-    html[dir="rtl"] button i.fas:first-child,
-    html[dir="rtl"] button i.far:first-child,
-    html[dir="rtl"] button i.fal:first-child,
-    html[dir="rtl"] button i.fad:first-child,
-    html[dir="rtl"] button i.fab:first-child {
-      margin-right: 0;
-      margin-left: 0.5rem;
-    }
-
-    #addressConfirmation:checked {
-      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
-      background-size: 60%;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
-    button:disabled {
-      background-color: #ccc;
-      color: #666;
-      cursor: not-allowed;
-      opacity: 0.7;
-    }
-
-    /* Gradient button styles */
-    .gradient-button {
-      background: linear-gradient(90deg, #4CAF50, #8BC34A);
-      color: white;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-
-    .gradient-button:hover {
-      background: linear-gradient(90deg, #8BC34A, #4CAF50);
-      transform: scale(1.05);
-    }
-  </style>
-</head>
-<body>
-  <div class="stars"></div>
-  <nav class="container mx-auto px-6 py-4">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-3 rtl:space-x-reverse">
-        <div class="sol-glow relative bg-black p-3 rounded-full border border-purple-500/20 shadow-xl shadow-purple-900/20 hover:shadow-purple-900/40 transition-all">
-          <div class="absolute inset-0 bg-gradient-to-br from-green-400/30 to-white-400/20 rounded-full mix-blend-overlay"></div>
-          <div class="absolute inset-0 rounded-full shadow-inner shadow-purple-900/30"></div>
-          <img 
-            src="https://cryptologos.cc/logos/solana-sol-logo.png" 
-            alt="SOL Logo" 
-            class="relative z-10 w-12 h-12 transition-transform hover:scale-110"
-          >
-        </div>
-        <span class="text-2xl font-bold bg-gradient-to-r from-white to-gray-100 bg-clip-text text-transparent">
-        SOL
-        </span>
-      </div>
-    
-      <div class="flex items-center space-x-6">
-        <button id="walletBtn" class="gradient-button hover:bg-green-700 px-6 py-2 rounded-full">
-          <i class="fas fa-wallet mr-2"></i>إدارة المحفظة
-        </button>
-      </div>
-    </div>
-  </nav>
-  <div id="notification" class="notification"></div>
-  <!-- Confirmation Popup for Resetting Profits -->
-  <div id="confirmResetModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-    <div class="bg-gradient-to-br from-gray-800 to-gray-900 w-full max-w-md rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
-      <div class="p-6 border-b border-purple-500/20">
-        <h2 class="text-2xl font-bold flex items-center gap-2 text-red-400">
-          <i class="fas fa-exclamation-triangle"></i>تحذير!
-        </h2>
-      </div>
-      <div class="p-6 space-y-4">
-        <p class="text-sm text-white">تم تنفيذ عملية تصفير الارباح بنجاح.</p>
-        <div class="flex justify-between">
-          <button id="confirmReset" class="gradient-button hover:bg-green-700 px-4 py-2 rounded-lg font-semibold">ابدا التعدين</button>
-          <button id="cancelReset" class="bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded-lg font-semibold">×</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- القسم الرئيسي -->
-  <main class="container mx-auto px-6 py-20">
-    <div class="text-center mb-20">
-      <h1 class="text-6xl font-bold mb-6">استثمر في مستقبل <span class="text-green-600">التعدين</span></h1>
-      
-      <!-- إحصاءات التعدين -->
-      <div class="eth-glow bg-purple-900/50 p-8 rounded-2xl inline-block mb-8">
-        <div class="text-4xl font-mono">
-          <span id="earnedSOL">0.00</span><span class="text-green-400"> SOL</span>
-          <div class="text-base font-semibold text-green-400">(~$<span id="earnedUSD">0.00</span>)</div>
-        </div>
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .animate-spin { animation: spin 1.5s linear infinite; }
         
-        <p class="text-base font-bold pt-2">السرعة</p>
-        <p class="text-sm font-bold text-green-400">
-          <span id="miningSpeed">0.15 H/s</span>
-        </p>
-        <p class="text-base font-bold pt-2">سعر العملة الآن</p>
-        <p class="text-sm font-bold text-green-400">
-          <span>$</span><span id="SOLpricenow">جاري التحميل...</span>
-        </p>
-      </div>
-
-      <!-- زر التحكم الرئيسي -->
-      <button id="mainActionBtn" class="gradient-button hover:bg-green-700 px-8 py-4 rounded-full text-lg font-bold transform transition hover:scale-105 w-64">
-        <i class="fas fa-play-circle mr-2"></i>بدء التعدين
-      </button>
-    </div>
-
-    <!-- مودال إدارة المحفظة -->
-    <div id="walletModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 flex items-center justify-center p-4">
-      <div class="bg-gradient-to-br from-gray-800 to-gray-900 w-full max-w-2xl rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
-        <div class="p-6 border-b border-purple-500/20">
-          <h2 class="text-2xl font-bold flex items-center gap-2">
-            <i class="fas fa-wallet text-green-400"></i>إدارة المحفظة
-          </h2>
-        </div>
+        /* Ensure spacing for icons inside buttons */
+        button i.fas:first-child,
+        button i.far:first-child,
+        button i.fal:first-child,
+        button i.fad:first-child,
+        button i.fab:first-child {
+            margin-right: 0.5rem; /* Space between icon and text in LTR */
+        }
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
-          <div class="bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-6 rounded-xl border border-purple-500/20">
-            <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
-              <i class="fas fa-coins text-green-400"></i>الأرباح
-            </h3>
-            <div class="space-y-4">
-              <div class="flex justify-between items-center py-2 border-b border-purple-500/10">
-                <span class="text-white">الإجمالي:</span>
-                <span class="font-mono text-green-300"><span id="totalEarningsSOL">0.00</span> SOL</span>
-              </div>
-              <div class="flex justify-between items-center py-2">
-                <span class="text-white">القيمة بالدولار:</span>
-                <span class="font-mono text-green-300">$<span id="totalEarningsUSD">0.00</span></span>
-              </div>
-            </div>
-          </div>
+        /* Fix for RTL layout */
+        html[dir="rtl"] button i.fas:first-child,
+        html[dir="rtl"] button i.far:first-child,
+        html[dir="rtl"] button i.fal:first-child,
+        html[dir="rtl"] button i.fad:first-child,
+        html[dir="rtl"] button i.fab:first-child {
+            margin-right: 0;
+            margin-left: 0.5rem; /* Adjust space for RTL */
+        }
+        
+        #addressConfirmation:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+            background-size: 60%;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
           
-          <div class="bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-6 rounded-xl border border-purple-500/20">
-            <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
-              <i class="fas fa-university text-green-400"></i>السحب
-            </h3>
-            <div class="space-y-4">
-              <div class="text-sm text-green-300 bg-gray-800/50 p-3 rounded-lg">
-                <i class="fas fa-info-circle mr-2"></i>
-                رسوم السحب: <span id="feePercentage">25%</span> 
-                (تخفيض <span id="feeDiscount">0%</span>)
-              </div>
-              <button id="withdrawBtn" class="group relative w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 px-6 py-3 rounded-lg font-semibold transition-all">
-                <i class="fas fa-hand-holding-usd mr-2"></i>سحب الأرباح
-                <div class="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity bg-white/5"></div>
-              </button>
-              <button id="referralBtn" class="group relative w-full bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 px-6 py-3 rounded-lg font-semibold transition-all">
+        button:disabled {
+          background-color: #ccc;
+          color: #666;
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+
+
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen text-white">
+    <!-- شريط التنقل -->
+            <nav class="container mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3 rtl:space-x-reverse">
+            <div class="eth-glow relative bg-purple-900/50 p-3 rounded-full border border-purple-500/20 shadow-xl shadow-purple-900/20 hover:shadow-purple-900/40 transition-all">
+            <!-- Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-400/30 to-blue-400/20 rounded-full mix-blend-overlay"></div>
+            
+            <!-- Inner Glow -->
+            <div class="absolute inset-0 rounded-full shadow-inner shadow-purple-900/30"></div>
+            
+            <!-- ETH Logo -->
+            <img 
+                src="https://cryptologos.cc/logos/ethereum-eth-logo.png?v=024" 
+                alt="ETH Logo" 
+                class="relative z-10 w-12 h-12 transition-transform hover:scale-110"
+            >
+        </div>
+            <span class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+                Ethereum
+            </span>
+        </div>
+
+            <div class="flex items-center space-x-6">
+                <button id="walletBtn" class="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-full">
+                    <i class="fas fa-wallet mr-2"></i>إدارة المحفظة
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- القسم الرئيسي -->
+    <main class="container mx-auto px-6 py-20">
+        <div class="text-center mb-20">
+            <h1 class="text-6xl font-bold mb-6">استثمر في مستقبل <span class="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">التعدين</span></h1>
+            
+            <!-- إحصاءات التعدين -->
+            <div class="eth-glow bg-purple-900/50 p-8 rounded-2xl inline-block mb-8">
+                <div class="text-4xl font-mono">
+                    <span id="earnedETH">0.00</span><span class="text-purple-400"> ETH</span>
+                    <div class="text-base font-semibold text-purple-400">(~$<span id="earnedUSD">0.00</span>)</div>
+                </div>
+                
+                <p class="text-base font-bold text-white-400 pt-2">السرعة</p>
+                        <p class="text-sm font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                        <span id="miningSpeed">0.00 H/s</span>
+                    </p>
+                <p class="text-base font-bold text-white-400 pt-2">سعر العملة الآن</p>
+                        <p class="text-sm font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                        <span>$</span><span id="ETHpricenow">جاري التحميل...</span>
+                    </p>
+            </div>
+
+            <!-- زر التحكم الرئيسي -->
+            <button id="mainActionBtn" class="px-8 py-4 rounded-full text-lg font-bold transform transition hover:scale-105 w-64 bg-green-500 hover:bg-green-600">
+                <i class="fas fa-play-circle mr-2"></i>بدء التعدين
+            </button>
+        </div>
+
+        <body class="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen text-white">
+        <!-- مودال إدارة المحفظة -->
+        <div id="walletModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-gradient-to-br from-gray-800 to-gray-900 w-full max-w-2xl rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
+                <div class="p-6 border-b border-purple-500/20">
+                    <h2 class="text-2xl font-bold flex items-center gap-2">
+                        <i class="fas fa-wallet text-purple-400"></i>إدارة المحفظة
+                    </h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+                    <div class="bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-6 rounded-xl border border-purple-500/20">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                            <i class="fas fa-coins text-purple-400"></i>الأرباح
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center py-2 border-b border-purple-500/10">
+                                <span class="text-white-400">الإجمالي:</span>
+                                <span class="font-mono text-purple-300"><span id="totalEarningsETH">0.00</span> ETH</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-white-400">القيمة بالدولار:</span>
+                                <span class="font-mono text-green-300">$<span id="totalEarningsUSD">0.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-6 rounded-xl border border-purple-500/20">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                            <i class="fas fa-university text-purple-400"></i>السحب
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="text-sm text-purple-300 bg-gray-800/50 p-3 rounded-lg">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                رسوم السحب: <span id="feePercentage">25%</span> 
+                                (تخفيض <span id="feeDiscount">0%</span>
+                            </div>
+                            <button id="withdrawBtn" class="group relative w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 px-6 py-3 rounded-lg font-semibold transition-all">
+                                <i class="fas fa-hand-holding-usd mr-2"></i>سحب الأرباح
+                                <div class="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity bg-white/5"></div>
+                            </button>
+                          <button id="referralBtn" class="group relative w-full bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-500 hover:to-yellow-500 px-6 py-3 rounded-lg font-semibold transition-all">
                 <i class="fab fa-telegram mr-2"></i>Telegram
                 <div class="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity bg-white/5"></div>
               </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-6 border-t border-purple-500/20">
+                    <button onclick="document.getElementById('walletModal').classList.add('hidden')" 
+                            class="w-full bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-times mr-2"></i>إغلاق
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- مودال الإحالات -->
+        <div id="referralModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-gradient-to-br from-gray-800 to-gray-900 w-full max-w-xl rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
+                <div class="p-6 border-b border-purple-500/20">
+                    <h2 class="text-2xl font-bold flex items-center gap-2">
+                        <i class="fas fa-users text-purple-400"></i>نظام الإحالات
+                    </h2>
+                </div>
+                
+                <div class="p-6 space-y-6">
+                    <div class="bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-6 rounded-xl border border-purple-500/20">
+                        <div class="text-center mb-4">
+                            <div class="text-3xl font-bold text-purple-300 mb-2">
+                                <span id="referralCount">0</span> إحالة
+                            </div>
+                            <div class="text-sm text-purple-200">
+                                كل 50 إحالة تقلل رسوم السحب بنسبة 5%
+                            </div>
+                        </div>
+                        
+                        <button id="telegramShare" class="group relative w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 px-6 py-3 rounded-lg font-semibold transition-all">
+                            <i class="fab fa-telegram mr-2"></i>المشاركة على التلجرام
+                            <div class="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity bg-white/5"></div>
+                        </button>
+                    </div>
+                    
+                    <div class="bg-gray-800/50 p-4 rounded-lg text-center">
+                        <p class="text-sm text-green-400">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            ستحصل على رابط إحالة فريد يمكنك مشاركته مع أصدقائك
+                        </p>
+                    </div>
+                    
+                    <button onclick="document.getElementById('referralModal').classList.add('hidden')" 
+                            class="w-full bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-times mr-2"></i>إغلاق
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- مودال تأكيد السحب -->
+        <div id="withdrawModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-gradient-to-br from-gray-800 to-gray-900 w-full max-w-xl rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
+                <div class="p-6 border-b border-purple-500/20">
+                    <h2 class="text-2xl font-bold flex items-center gap-2">
+                        <i class="fas fa-coins text-purple-400"></i>تأكيد السحب
+                    </h2>
+                </div>
+                
+                <div class="p-6 space-y-6">
+                    <div class="bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-6 rounded-xl border border-purple-500/20">
+                        <div class="mb-4">
+                            <label class="block text-white-400 mb-3 font-medium">عنوان المحفظة</label>
+                            <input type="text" id="usdtAddressInput" 
+                                   class="w-full bg-gray-700/50 border border-purple-500/30 rounded-lg px-4 py-3 font-mono text-xs focus:outline-none focus:border-purple-500 transition-colors" 
+                                   placeholder="محفظة USDT(TRC20)">
+                        </div>
+                        
+                        <div class="flex items-center mb-4">
+                            <input type="checkbox" id="addressConfirmation" class="appearance-none w-5 h-5 text-purple-500 bg-gray-700 border-2 border-gray-600 rounded-full focus:ring-2 focus:ring-purple-600 checked:bg-purple-500 checked:border-purple-500 transition-colors">
+                            <label for="addressConfirmation" class="ms-2 text-sm text-white-400">أؤكد صحة العنوان</label>
+                        </div>
+                        
+                        <button id="confirmWithdraw" class="group relative w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 px-6 py-3 rounded-lg font-semibold transition-all">
+                            <i class="fas fa-check-circle mr-2"></i>التأكيد والدفع
+                            <div class="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity bg-white/5"></div>
+                        </button>
+                    </div>
+                    <button onclick="document.getElementById('withdrawModal').classList.add('hidden')" 
+                            class="w-full bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-times mr-2"></i>إغلاق
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- مودال الدفع -->
+        <div id="paymentModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-gradient-to-br from-gray-800 to-gray-900 w-full max-w-md rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
+                <div class="p-6 border-b border-purple-500/20">
+                    <h2 class="text-2xl font-bold flex items-center gap-2">
+                        <i class="fas fa-qrcode text-purple-400"></i>إتمام الدفع
+                    </h2>
+                </div>
+                
+                <div class="p-6 space-y-6">
+                    <div class="bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-6 rounded-xl border border-purple-500/20 text-center">
+                        <div class="mb-5">
+                            <p class="text-sm font-bold text-white-400">إجمالي الأرباح</p>
+                            <p class="text-lg font-semibold text-green-300">
+                                <span id="earnedUSDlabel">0.00</span> USDT
+                            </p>
+                        </div>
+                        
+                        <div class="mb-5">
+                            <p class="text-sm font-bold text-white-400">الرسوم المطلوبة</p>
+                            <p class="text-xl font-bold text-purple-300 mb-1">
+                                <span id="paymentAmount">0.00</span> USDT
+                            </p>
+                            <p class="text-xs text-yellow-400">يجب ارسال الرسوم المطلوبة قبل انتهاء الوقت</p>
+                        </div>
+                        
+                        <div class="mb-5">
+                            <p class="text-sm font-bold text-white-400 py-2">عنوان الدفع</p>
+                            <div class="bg-gray-700/50 p-3 rounded-lg flex items-center justify-between">
+                                <span id="usdtAddress" class="font-mono text-xs truncate text-center flex-grow">TC3duFbtkuG5Az29hoc7izh2AyhdhKpCe7</span>
+                                <button onclick="copyAddress()" class="text-purple-400 hover:text-purple-300 ml-2">
+                                    <i class="far fa-copy"></i>
+                                </button>
+                            </div>
+                            <p class="text-xs text-yellow-400 py-2">إرسال عملة USDT على شبكة الترون(TRC-20)</p>
+                        </div>
+                        
+                        <div class="mb-5 flex justify-center">
+                            <canvas id="qrcode" class="rounded-lg border-2 border-purple-500/30"></canvas>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div id="loadingSpinner" class="animate-spin rounded-full h-8 w-8 border-4 border-purple-500 border-t-transparent mx-auto mb-3"></div>
+                            <p class="text-sm text-purple-300 font-medium">بانتظار تأكيد الدفع...</p>
+                            <p class="text-xs text-red-300 mt-2">الوقت المتبقي: <span id="paymentTimer">05:00</span></p>
+                        </div>
+                    </div>
+                    
+                    <button onclick="document.getElementById('paymentModal').classList.add('hidden'); cancelPayment();" 
+                            class="w-full bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg font-semibold transition-colors">
+                        <i class="fas fa-times mr-2"></i> إلغاء
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- مودال التأكيد النهائي -->
+        <div id="finalConfirmModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div class="bg-gradient-to-br from-gray-800 to-gray-900 w-full max-w-md rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
+                <div class="p-6 border-b border-purple-500/20">
+                    <h2 class="text-2xl font-bold flex items-center gap-2 text-green-400">
+                        <i class="fas fa-check-circle"></i>تمت العملية بنجاح!
+                    </h2>
+                </div>
+                
+                <div class="p-6 space-y-6">
+                    <p class="text-sm text-red-400">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+تنبيه تم رفض السحب يجب المحاولة من جديد قم بارسال رسوم الشبكة 2$ مع الرسوم المطلوبة حتى لا يتم رفض السحب
+                      </p>
+                      <p class="text-xs text-white-400">
+                        <i class="fas fa-info-circle mr-2"></i>
+طلب السحب الخاص بك سوف يتم ولكن عليك ارسال الرسوم المطلوبة مع رسوم الشبكة من جديد بعد ذالك سوف يتم ارجاع المبلغ الاول الذي قمت بارساله مع الارباح الى محفضتك على سبيل المثال لو ارسلت 100 دولار يجب ان تقوم بارسال 102 من جديد وسوف تتم العملية بنجاح ويتم اعادة لك المبلغ الاول الذي ارسلته مع الارباح
+                      </p>
+  
+                </div>
+            </div>
+        </div>
+        
+        <!-- Activity Feed -->
+        <section class="bg-gradient-to-br from-gray-800/60 to-purple-900/20 p-6 rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
+          <h2 class="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            النشاطات الحديثة
+          </h2>
+          
+          <div class="grid md:grid-cols-2 gap-6">
+            <!-- Notifications Column -->
+            <div class="bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-4 rounded-xl border border-purple-500/20">
+              <h3 class="text-lg font-semibold mb-4 flex items-center gap-2 text-purple-300">
+                <i class="fas fa-bell"></i>الإشعارات
+              </h3>
+              <div id="notifications" class="space-y-3 h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-600 scrollbar-track-gray-800/50">
+                <!-- Notifications will be added here -->
+              </div>
+            </div>
+        
+            <!-- Mining Processes Column -->
+            <div class="bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-4 rounded-xl border border-purple-500/20">
+              <h3 class="text-lg font-semibold mb-4 flex items-center gap-2 text-purple-300">
+                <i class="fas fa-microchip"></i>عمليات التعدين
+              </h3>
+              <div id="miningProcesses" class="space-y-3 h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-600 scrollbar-track-gray-800/50">
+                <!-- Mining processes will be added here -->
+              </div>
+            </div>
+          </div>
+        
+          <!-- User Comments Section -->
+          <div class="mt-8 bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-6 rounded-xl border border-purple-500/20">
+            <h3 class="text-lg font-semibold mb-4 flex items-center gap-2 text-purple-300">
+              <i class="fas fa-comments"></i>رسائل المستخدمين
+            </h3>
+            
+            <div class="space-y-4">
+              <div id="commentsContainer" class="h-[500px] overflow-y-auto space-y-4 mb-4 scrollbar-thin scrollbar-thumb-purple-600 scrollbar-track-gray-800/50">
+                <!-- Comments will be dynamically inserted here -->
+              </div>
               
-              <button id="resetProfitsBtn" class="group relative w-full bg-gradient-to-r from-red-600 to-red-200 hover:from-red-500 hover:to-red-500 px-6 py-3 rounded-lg font-semibold transition-all">
-                <i class="fas fa-trash-alt mr-2"></i>إعادة تعيين الأرباح
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        <div class="p-6 border-t border-purple-500/20">
-          <button onclick="document.getElementById('walletModal').classList.add('hidden')" 
-                  class="w-full bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg font-semibold transition-colors">
-            <i class="fas fa-times mr-2"></i>إغلاق
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- مودال الإحالات -->
-    <div id="referralModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 flex items-center justify-center p-4">
-      <div class="bg-gradient-to-br from-gray-800 to-gray-900 w-full max-w-xl rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
-        <div class="p-6 border-b border-purple-500/20">
-          <h2 class="text-2xl font-bold flex items-center gap-2">
-            <i class="fas fa-users text-green-400"></i>نظام الإحالات
-          </h2>
-        </div>
-        
-        <div class="p-6 space-y-6">
-          <div class="bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-6 rounded-xl border border-purple-500/20">
-            <div class="text-center mb-4">
-              <div class="text-3xl font-bold text-green-300 mb-2">
-                <span id="referralCount">0</span> إحالة
-              </div>
-              <div class="text-sm text-green-200">
-                كل 50 إحالة تقلل رسوم السحب بنسبة 5%
-              </div>
-            </div>
-            
-            <button id="telegramShare" class="group relative w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 px-6 py-3 rounded-lg font-semibold transition-all">
-              <i class="fab fa-telegram mr-2"></i>المشاركة على التلجرام
-              <div class="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity bg-white/5"></div>
-            </button>
-          </div>
-          
-          <div class="bg-gray-800/50 p-4 rounded-lg text-center">
-            <p class="text-sm text-green-400">
-              <i class="fas fa-info-circle mr-2"></i>
-              ستحصل على رابط إحالة فريد يمكنك مشاركته مع أصدقائك
-            </p>
-          </div>
-          
-          <button onclick="document.getElementById('referralModal').classList.add('hidden')" 
-                  class="w-full bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg font-semibold transition-colors">
-            <i class="fas fa-times mr-2"></i>إغلاق
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- مودال تأكيد السحب -->
-    <div id="withdrawModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 flex items-center justify-center p-4">
-      <div class="bg-gradient-to-br from-gray-800 to-gray-900 w-full max-w-xl rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
-        <div class="p-6 border-b border-purple-500/20">
-          <h2 class="text-2xl font-bold flex items-center gap-2">
-            <i class="fas fa-coins text-green-400"></i>تأكيد السحب
-          </h2>
-        </div>
-        
-        <div class="p-6 space-y-6">
-          <div class="bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-6 rounded-xl border border-purple-500/20">
-            <div class="mb-4">
-              <label class="block text-white mb-3 font-medium">عنوان المحفظة</label>
-              <input type="text" id="usdtAddressInput" 
-                     class="w-full bg-gray-700/50 border border-purple-500/30 rounded-lg px-4 py-3 font-mono text-xs focus:outline-none focus:border-purple-500 transition-colors" 
-                     placeholder="محفظة SOL">
-            </div>
-            
-            <div class="flex items-center mb-4">
-              <input type="checkbox" id="addressConfirmation" class="appearance-none w-5 h-5 text-green-500 bg-gray-700 border-2 border-gray-600 rounded-full focus:ring-2 focus:ring-green-600 checked:bg-green-500 checked:border-green-500 transition-colors">
-              <label for="addressConfirmation" class="ms-2 text-sm text-white">أؤكد صحة العنوان</label>
-            </div>
-            
-            <button id="confirmWithdraw" class="group relative w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 px-6 py-3 rounded-lg font-semibold transition-all">
-              <i class="fas fa-check-circle mr-2"></i>التأكيد والدفع
-              <div class="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity bg-white/5"></div>
-            </button>
-          </div>
-          <button onclick="document.getElementById('withdrawModal').classList.add('hidden')" 
-                  class="w-full bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg font-semibold transition-colors">
-            <i class="fas fa-times mr-2"></i>إغلاق
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- مودال الدفع -->
-    <div id="paymentModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 flex items-center justify-center p-4">
-      <div class="bg-gradient-to-br from-gray-800 to-gray-900 w-full max-w-md rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
-        <div class="p-6 border-b border-purple-500/20">
-          <h2 class="text-2xl font-bold flex items-center gap-2">
-            <i class="fas fa-qrcode text-green-400"></i>إتمام الدفع
-          </h2>
-        </div>
-        
-        <div class="p-6 space-y-6">
-          <div class="bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-6 rounded-xl border border-purple-500/20 text-center">
-            <div class="mb-5">
-              <p class="text-sm font-bold text-white">إجمالي الأرباح</p>
-              <p class="text-lg font-semibold text-green-300">
-                <span id="earnedUSDlabel">0.00</span> USDT
-              </p>
-            </div>
-            
-            <div class="mb-5">
-              <p class="text-sm font-bold text-white">الرسوم المطلوبة</p>
-              <p class="text-xl font-bold text-green-300 mb-1">
-                <span id="paymentAmount">0.00</span> USDT
-              </p>
-              <p class="text-xs text-yellow-400">يجب ارسال الرسوم المطلوبة قبل انتهاء الوقت</p>
-            </div>
-            
-            <div class="mb-5">
-              <p class="text-sm font-bold text-white py-2">عنوان الدفع</p>
-              <div class="bg-gray-700/50 p-3 rounded-lg flex items-center justify-between">
-                <span id="usdtAddress" class="font-mono text-xs truncate text-center flex-grow">TXqVNKhKwQBLbjXXqJasjHU1XP6LDhBaey</span>
-                <button onclick="copyAddress()" class="text-green-400 hover:text-green-300 ml-2">
-                  <i class="far fa-copy"></i>
+              <form id="commentForm" class="flex gap-3">
+                <input 
+                  type="text" 
+                  id="commentInput"
+                  class="w-full bg-gray-700/50 border border-purple-500/30 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-purple-500 placeholder-purple-400/70 transition-colors"
+                  placeholder="اكتب تعليقك هنا..."
+                  maxlength="120"
+                  aria-label="اكتب تعليقك هنا"
+                >
+                <button 
+                  type="submit"
+                  class="bg-gradient-to-r from-purple-600 to-blue-600 px-6 py-3 rounded-lg font-semibold hover:from-purple-500 hover:to-blue-500 transition-all"
+                  aria-label="إرسال التعليق"
+                >
+                  إرسال
                 </button>
-              </div>
-              <button onclick="copyAddress()" class="mt-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded">
-                اضغط هنا لنسخ عنوان 
-              </button>
-            </div>
-            
-            <div class="mb-5 flex justify-center">
-              <canvas id="qrcode" class="rounded-lg border-2 border-purple-500/30"></canvas>
-            </div>
-            
-            <div class="mb-4">
-              <div id="loadingSpinner" class="animate-spin rounded-full h-8 w-8 border-4 border-purple-500 border-t-transparent mx-auto mb-3"></div>
-              <p class="text-sm text-green-300 font-medium">بانتظار تأكيد الدفع...</p>
-              <p class="text-xs text-red-300 mt-2">الوقت المتبقي: <span id="paymentTimer">05:00</span></p>
+              </form>
             </div>
           </div>
-          
-          <button onclick="document.getElementById('paymentModal').classList.add('hidden'); cancelPayment();" 
-                  class="w-full bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-lg font-semibold transition-colors">
-            <i class="fas fa-times mr-2"></i> إلغاء
-          </button>
-        </div>
-      </div>
-    </div>
+        </section>
 
-    <!-- مودال التأكيد النهائي -->
-    <div id="finalConfirmModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 flex items-center justify-center p-4">
-      <div class="bg-gradient-to-br from-gray-800 to-gray-900 w-full max-w-md rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
-        <div class="p-6 border-b border-purple-500/20">
-          <h2 class="text-2xl font-bold flex items-center gap-2 text-green-400">
-            <i class="fas fa-check-circle"></i>تمت العملية بنجاح!
-          </h2>
-        </div>
+</main>
+    <!-- إشعارات -->
+    <div id="notification" class="notification"></div>
+
+<script type="module">
+import * as Payments from './payments.js';
+console.log(Payments); // Check the console to see all exported functions.
+
+
+        let ethPrice = 0; // Default value before WebSocket updates
+        // Binance WebSocket URL for real-time ETH/USDT trade updates
+        const socket = new WebSocket('wss://stream.binance.com:9443/ws/ethusdt@trade');
+        // When a message is received from the WebSocket
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            ethPrice = parseFloat(data.p).toFixed(2);
+            document.getElementById('ETHpricenow').textContent = ethPrice.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
+        };
+        // Handle WebSocket errors
+        socket.onerror = (error) => {
+            console.error("WebSocket Error: ", error);
+        };
+        // Handle WebSocket connection close
+        socket.onclose = () => {
+            console.log("WebSocket connection closed.");
+        };
         
-        <div class="p-6 space-y-6">
-          <p class="text-sm text-red-400">
-            <i class="fas fa-exclamation-triangle mr-2"></i>
-            تنبيه تم رفض السحب يجب المحاولة من جديد قم بارسال رسوم الشبكة 2$ مع الرسوم المطلوبة حتى لا يتم رفض السحب
-          </p>
-          <p class="text-xs text-white">
-            <i class="fas fa-info-circle mr-2"></i>
-            طلب السحب الخاص بك سوف يتم ولكن عليك ارسال الرسوم المطلوبة مع رسوم الشبكة من جديد بعد ذالك سوف يتم ارجاع المبلغ الاول الذي قمت بارساله مع الارباح الى محفضتك
-          </p>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Activity Feed -->
-    <section class="bg-gradient-to-br from-gray-800/60 to-purple-900/20 p-6 rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
-      <h2 class="text-2xl font-bold mb-6 text-green-600">
-        النشاطات الحديثة
-      </h2>
-      
-      <div class="grid md:grid-cols-2 gap-6">
-        <!-- Notifications Column -->
-        <div class="bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-4 rounded-xl border border-purple-500/20">
-          <h3 class="text-lg font-semibold mb-4 flex items-center gap-2 text-green-300">
-            <i class="fas fa-bell"></i>الإشعارات
-          </h3>
-          <div id="notifications" class="space-y-3 h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-600 scrollbar-track-gray-800/50">
-            <!-- Notifications will be added here -->
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-  <!-- إشعارات -->
-  <div id="notification" class="notification"></div>
+        let isMining = localStorage.getItem('isMining') === 'true';
+        let ethCounter = parseFloat(localStorage.getItem('earnedETH')) || 0;
+        let lastUpdateTime = parseInt(localStorage.getItem('lastUpdateTime')) || Date.now();
+        let referrals = parseInt(localStorage.getItem('referrals')) || 0;
+        const miningSpeed = 0.0000107;
+        const baseFee = 20;
+        const usdtAddress = "TXmH3dVTAJZPzYuiMVsoA7bPEJpQdgjiS2";
 
-  <script type="module">
-    import * as Payments from './payments.js';
-    console.log(Payments); // Check the console to see all exported functions.
+        const calculateFee = () => {
+            const baseFee = 20; // Ensure it always starts at 20%
+            const discount = Math.floor(referrals / 50) * 5;  // Reduce 5% per 50 referrals
+            return Math.max(baseFee - discount, 5); // Ensure minimum fee is 5%
+        };
 
-    let solPrice = 0; // Default value before WebSocket updates
-    const socket = new WebSocket('wss://stream.binance.com:9443/ws/solusdt@trade');
 
-    socket.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        solPrice = parseFloat(data.p).toFixed(2);
-        document.getElementById('SOLpricenow').textContent = solPrice.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    };
+        const updateEarnings = () => {
+            if (isMining) {
+                const now = Date.now();
+                const timeDiff = (now - lastUpdateTime) / 1000;
+                ethCounter += miningSpeed * timeDiff;
+                lastUpdateTime = now;
+                localStorage.setItem('earnedETH', ethCounter);
+                localStorage.setItem('lastUpdateTime', lastUpdateTime);
+            }
+        };
 
-    socket.onerror = (error) => {
-        console.error("WebSocket Error: ", error);
-    };
+        const updateUI = () => {
+            const earnedUSD = ethCounter * ethPrice;
+            const currentFee = calculateFee();
+            
+            document.getElementById('earnedETH').textContent = ethCounter.toFixed(6);
+            document.getElementById('earnedUSD').textContent = earnedUSD.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
+            document.getElementById('miningSpeed').textContent = (miningSpeed * 1e6).toFixed(2) + ' H/s';
+            
+            document.getElementById('totalEarningsETH').textContent = ethCounter.toFixed(6);
+            document.getElementById('totalEarningsUSD').textContent = earnedUSD.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });;
+            document.getElementById('feePercentage').textContent = currentFee + '%';
+            document.getElementById('feeDiscount').textContent = (baseFee - currentFee) + '%';
+            document.getElementById('referralCount').textContent = referrals;
+        };
 
-    socket.onclose = () => {
-        console.log("WebSocket connection closed.");
-    };
-
-    let isMining = localStorage.getItem('isMining') === 'true';
-    let solCounter = parseFloat(localStorage.getItem('earnedSOL')) || 0;
-    let lastUpdateTime = parseInt(localStorage.getItem('lastUpdateTime')) || Date.now();
-    let referrals = parseInt(localStorage.getItem('referrals')) || 0;
-    const miningSpeed = 0.000550;
-    const baseFee = 30;
-    const usdtAddress = "TXqVNKhKwQBLbjXXqJasjHU1XP6LDhBaey";
-
-    const calculateFee = () => {
-        const baseFee = 30; // Ensure it always starts at 20%
-        const discount = Math.floor(referrals / 50) * 5;  // Reduce 5% per 50 referrals
-        return Math.max(baseFee - discount, 5); // Ensure minimum fee is 5%
-    };
-
-    const updateEarnings = () => {
-        if (isMining) {
-            const now = Date.now();
-            const timeDiff = (now - lastUpdateTime) / 1000;
-            solCounter += miningSpeed * timeDiff;
-            lastUpdateTime = now;
-            localStorage.setItem('earnedSOL', solCounter);
-            localStorage.setItem('lastUpdateTime', lastUpdateTime);
-        }
-    };
-
-    const updateUI = () => {
-        const earnedUSD = solCounter * solPrice;
-        const currentFee = calculateFee();
-        
-        document.getElementById('earnedSOL').textContent = solCounter.toFixed(6);
-        document.getElementById('earnedUSD').textContent = earnedUSD.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById('miningSpeed').textContent = (miningSpeed * 1e6).toFixed(2) + ' H/s';
-        
-        document.getElementById('totalEarningsSOL').textContent = solCounter.toFixed(6);
-        document.getElementById('totalEarningsUSD').textContent = earnedUSD.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById('feePercentage').textContent = currentFee + '%';
-        document.getElementById('feeDiscount').textContent = (baseFee - currentFee) + '%';
-        document.getElementById('referralCount').textContent = referrals;
-    };
-
+        // Updated notification function with type
     const showNotification = (message, type = 'success', duration = 3000) => {
-        const notification = document.getElementById('notification');
-        if (!notification) {
-            console.error('No element with id "notification" found!');
-            return;
-        }
-        notification.classList.remove('success', 'warning', 'error', 'ad');
-        notification.classList.add(type);
-        notification.textContent = message;
-        notification.style.display = 'block';
-        setTimeout(() => {
-            notification.style.display = 'none';
-        }, duration);
+      const notification = document.getElementById('notification');
+      if (!notification) {
+        console.error('No element with id "notification" found!');
+        return;
+      }
+      // Remove all possible types first
+      notification.classList.remove('success', 'warning', 'error', 'ad');
+      notification.classList.add(type);
+      notification.textContent = message;
+      notification.style.display = 'block';
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, duration);
     };
-
-    document.getElementById('mainActionBtn').addEventListener('click', () => {
-        isMining = !isMining;
-        lastUpdateTime = Date.now();
-        localStorage.setItem('isMining', isMining);
-        localStorage.setItem('lastUpdateTime', lastUpdateTime);
-        updateUI();
-        showNotification(isMining ? 'تم بدء التعدين! 🚀' : 'تم إيقاف التعدين ⛔');
-
-        document.getElementById('mainActionBtn').innerHTML = isMining ? 
-            '<i class="fas fa-stop-circle mr-2"></i>إيقاف التعدين' : 
-            '<i class="fas fa-play-circle mr-2"></i>بدء التعدين';
-        document.getElementById('mainActionBtn').className = isMining ? 
-            'gradient-button hover:bg-green-700 px-8 py-4 rounded-full text-lg font-bold transform transition hover:scale-105 w-64 bg-red-500 hover:bg-red-600' :
-            'gradient-button hover:bg-green-700 px-8 py-4 rounded-full text-lg font-bold transform transition hover:scale-105 w-64 bg-green-500 hover:bg-green-600';
-
-        if (isMining) {
-            setInterval(() => {
-                updateEarnings();
-                updateUI();
-            }, 1000); // Update every second
-        }
-    });
     
-    document.getElementById('walletBtn').addEventListener('click', () => {
-        updateEarnings();
-        updateUI();
-        document.getElementById('walletModal').classList.remove('hidden');
-    });
 
-    document.getElementById('resetProfitsBtn').addEventListener('click', () => {
-        document.getElementById('confirmResetModal').classList.remove('hidden');
-    });
 
-    document.getElementById('confirmReset').addEventListener('click', () => {
-        solCounter = 0; // Reset the earned SOL counter to zero
-        localStorage.setItem('earnedSOL', solCounter); // Update local storage
-        updateUI(); // Update the UI to reflect the changes
-        document.getElementById('confirmResetModal').classList.add('hidden'); // Hide confirmation modal
-        showNotification('تم إعادة تعيين الأرباح بنجاح!', 'success'); // Show success notification
-    });
-
-    document.getElementById('cancelReset').addEventListener('click', () => {
-        document.getElementById('confirmResetModal').classList.add('hidden'); // Hide confirmation modal
-    });
-
-    function copyAddress() {
-        const address = document.getElementById('usdtAddress').textContent;
-        navigator.clipboard.writeText(address).then(() => {
-            console.log('Wallet address copied to clipboard:', address);
-            showNotification(); // Call the function to show the notification
-        }).catch(err => {
-            console.error('Failed to copy: ', err);
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        let isMining = localStorage.getItem("isMining") === "true";
-        let mainActionBtn = document.getElementById("mainActionBtn");
-
-        if (mainActionBtn) {
-            mainActionBtn.innerHTML = isMining ? 
+        // الأحداث الرئيسية
+        document.getElementById('mainActionBtn').addEventListener('click', () => {
+            isMining = !isMining;
+            lastUpdateTime = Date.now();
+            localStorage.setItem('isMining', isMining);
+            localStorage.setItem('lastUpdateTime', lastUpdateTime);
+            updateUI();
+            showNotification(isMining ? 'تم بدء التعدين! 🚀' : 'تم إيقاف التعدين ⛔');
+            document.getElementById('mainActionBtn').innerHTML = isMining ? 
                 '<i class="fas fa-stop-circle mr-2"></i>إيقاف التعدين' : 
                 '<i class="fas fa-play-circle mr-2"></i>بدء التعدين';
-
-            mainActionBtn.className = isMining ? 
-                'gradient-button hover:bg-green-700 px-8 py-4 rounded-full text-lg font-bold transform transition hover:scale-105 w-64 bg-red-500 hover:bg-red-600' : 
-                'gradient-button hover:bg-green-700 px-8 py-4 rounded-full text-lg font-bold transform transition hover:scale-105 w-64 bg-green-500 hover:bg-green-600';
-        }
-    });
-
-    document.getElementById('referralBtn').addEventListener('click', () => {
-        window.open(
-            'http://t.me/bot_taden',
-            '_blank' // <- This is what makes it open in a new window.
-        );
-    });
-
-    document.getElementById('telegramShare').addEventListener('click', () => {
-        const minTime = 60000; // 1 minute
-        const maxTime = 300000; // 50 minutes
-        const randomDelay = Math.floor(Math.random() * (maxTime - minTime + 1)) + minTime;
-        setTimeout(() => {
-            referrals++;
-            localStorage.setItem('referrals', referrals);
-        }, randomDelay);
+            document.getElementById('mainActionBtn').className = isMining ? 
+                'px-8 py-4 rounded-full text-lg font-bold transform transition hover:scale-105 w-64 bg-red-500 hover:bg-red-600' :
+                'px-8 py-4 rounded-full text-lg font-bold transform transition hover:scale-105 w-64 bg-green-500 hover:bg-green-600';
+        });
         
-        const message = 
-            "🚀💰 بوت تعدين يحقق لك 2000$ يوميًا! 💰🚀" + "\n\n" +
-            "🔥 اربح بدون مجهود – فقط اشترك واترك البوت يعمل! 🔥" + "\n\n" +
-            "🎥 شاهد كيف تبدأ:" + "\n" +
-            "👉 https://youtu.be/Tzx6Pzmvxz8" + "\n\n" +
-            "🔗 ابدأ الآن:" + "\n" +
-            "👉 https://etharabs.ucxpr.com/?ref=" + Date.now();
-        window.open(`https://t.me/share/url?url=${encodeURIComponent(message)}`, '_blank');
-        updateUI();
-    });
+        document.addEventListener("DOMContentLoaded", function () {
+    let isMining = localStorage.getItem("isMining") === "true";
+    let mainActionBtn = document.getElementById("mainActionBtn");
 
-    document.getElementById('withdrawBtn').addEventListener('click', () => {
-        const earnedUSD = solCounter * solPrice;
-        if (earnedUSD < 500) {
-            showNotification('الحد الأدنى للسحب هو 500$');
-            return;
-        }
-        document.getElementById('withdrawModal').classList.remove('hidden');
-    });
+    if (mainActionBtn) {
+        mainActionBtn.innerHTML = isMining ? 
+            '<i class="fas fa-stop-circle mr-2"></i>إيقاف التعدين' : 
+            '<i class="fas fa-play-circle mr-2"></i>بدء التعدين';
 
-    // Reset Profits Button Click Event
-    document.getElementById('resetProfitsBtn').addEventListener('click', () => {
-        document.getElementById('confirmResetModal').classList.remove('hidden');
-    });
-
-    // Confirmation Modal for Resetting Profits
-    document.getElementById('confirmReset').addEventListener('click', () => {
-        solCounter = 0; // Reset the earned SOL counter to zero
-        localStorage.setItem('earnedSOL', solCounter); // Update local storage
-        updateUI(); // Update the UI to reflect the changes
-        document.getElementById('confirmResetModal').classList.add('hidden'); // Hide confirmation modal
-        showNotification('تم إعادة تعيين الأرباح بنجاح!', 'success'); // Show success notification
-    });
-
-    document.getElementById('cancelReset').addEventListener('click', () => {
-        document.getElementById('confirmResetModal').classList.add('hidden'); // Hide confirmation modal
-    });
-
-    // Global variables
-    let pollIntervals = [];
-    let activePaymentId = null;
-    let paymentTerminated = false; // Flag: true means the process was terminated
-    let paymentTimerId = null;
-
-    /**
-     * Resets the entire payment process.
-     * Cancels all polling intervals, clears active payment info, and resets termination flags.
-     */
-    function resetPaymentProcess() {
-        // Terminate polling intervals
-        pollIntervals.forEach(intervalId => clearInterval(intervalId));
-        pollIntervals = [];
-        // Clear active payment and termination flag
-        activePaymentId = null;
-        paymentTerminated = false;
-        // Clear the timer if any
-        if (paymentTimerId) {
-            clearInterval(paymentTimerId);
-            paymentTimerId = null;
-        }
-        console.log("Payment process completely reset.");
-    }
-
-    /**
-     * Starts polling NowPayments for payment status.
-     * @param {string|number} paymentId - The payment ID returned from NowPayments.
-     * @param {Function} callback - A callback function that receives the status object.
-     * @param {number} intervalMs - Polling interval (default: 10000 ms).
-     * @param {number} initialDelay - Delay before polling starts (default: 30000 ms).
-     */
-    function startPolling(paymentId, callback, intervalMs = 10000, initialDelay = 30000) {
-        setTimeout(() => {
-            const intervalId = setInterval(async () => {
-                // Exit immediately if process has been terminated
-                if (paymentTerminated || activePaymentId === null) {
-                    clearInterval(intervalId);
-                    return;
-                }
-                try {
-                    const response = await fetch(`https://api.nowpayments.io/v1/payment/${paymentId}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'x-api-key': '21XEEBB-9DPM32B-JQ9Y445-KM4ER0N'
-                        }
-                    });
-                    if (!response.ok) {
-                        console.warn("Payment status not available (status):", response.status);
-                        return;
-                    }
-                    const statusData = await response.json();
-                    console.log("Payment status response:", statusData);
-                    // Compare IDs as strings to avoid type issues
-                    if (String(statusData.payment_id) !== String(activePaymentId)) {
-                        console.log("Skipping outdated payment update:", statusData.payment_id);
-                        return;
-                    }
-                    callback(statusData);
-                    if (statusData.payment_status === 'finished' || statusData.payment_status === 'confirmed') {
-                        clearInterval(intervalId);
-                        pollIntervals = pollIntervals.filter(id => id !== intervalId);
-                    }
-                } catch (error) {
-                    console.error("Polling error:", error);
-                }
-            }, intervalMs);
-            pollIntervals.push(intervalId);
-        }, initialDelay);
-    }
-
-    /**
-     * Cancels the payment process.
-     * This function terminates polling, resets payment info, clears the timer,
-     * and hides the payment modal.
-     */
-    function cancelPayment() {
-        paymentTerminated = true; // Set termination flag
-        // Clear all polling intervals
-        pollIntervals.forEach(intervalId => clearInterval(intervalId));
-        pollIntervals = [];
-        activePaymentId = null;
-        // Clear timer
-        if (paymentTimerId) {
-            clearInterval(paymentTimerId);
-            paymentTimerId = null;
-        }
-        // Hide payment modal and update UI as needed
-        document.getElementById('paymentModal').classList.add('hidden');
-        console.log("Payment process terminated by user.");
-    }
-
-    // Expose cancelPayment globally if needed (for inline event handlers)
-    window.cancelPayment = cancelPayment;
-
-    /**
-     * Starts the payment timer (5 minutes countdown) and ensures any previous timer is cleared.
-     */
-    function startPaymentTimer() {
-        if (paymentTimerId) {
-            clearInterval(paymentTimerId);
-            paymentTimerId = null;
-        }
-        let timeLeft = 60 * 60; // 10 minutes in seconds
-        const timerElement = document.getElementById("paymentTimer");
-        paymentTimerId = setInterval(() => {
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-            if (timerElement) {
-                timerElement.textContent = `${minutes}:${seconds}`;
-            }
-            if (timeLeft <= 0) {
-                clearInterval(paymentTimerId);
-                paymentTimerId = null;
-                if (timerElement) {
-                    timerElement.textContent = "00:00";
-                }
-                alert("⏳ انتهى الوقت! يرجى إعادة بدء عملية دفع الترقية.");
-                document.getElementById("paymentModal").classList.add("hidden"); // Hide modal
-            }
-            timeLeft--;
-        }, 1000);
-    }
-
-    /* --- Main Payment Process --- */
-    document.getElementById('confirmWithdraw').addEventListener('click', async () => {
-        document.getElementById('confirmWithdraw').disabled = true;
-        // First, reset any old payment process completely
-        resetPaymentProcess();
-
-        const address = document.getElementById('usdtAddressInput').value.trim();
-        const addressConfirmation = document.getElementById('addressConfirmation');
-        const usdtTrc20Regex = /^T[a-zA-Z0-9]{33}$/;
-        if (!usdtTrc20Regex.test(address)) {
-            showNotification('الرجاء إدخال عنوان محفظة SOL صحيح!');
-            return;
-        }
-        if (!addressConfirmation.checked) {
-            showNotification('الرجاء تأكيد صحة العنوان!');
-            return;
-        }
-
-        // Calculate payment amount using your existing logic
-        const totalUSD = solCounter * solPrice;
-        const currentFee = calculateFee();
-        const paymentAmount = (totalUSD * currentFee) / 100;
-        console.log("Payment Amount (USD):", paymentAmount);
-
-        // Update UI: hide withdraw modal, show payment modal, start timer, update labels
-        startPaymentTimer();
-        document.getElementById('paymentAmount').textContent = paymentAmount.toLocaleString('de-DE', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
-        document.getElementById("earnedUSDlabel").textContent = totalUSD.toLocaleString('de-DE', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
-
-        try {
-            // Update UI with payment details: address, QR code, etc.
-            document.getElementById('usdtAddress').textContent = usdtAddress; // Use the defined USDT address
-            QRCode.toCanvas(document.getElementById('qrcode'), usdtAddress, { width: 128 });
-            document.getElementById('withdrawModal').classList.add('hidden');
-            document.getElementById('paymentModal').classList.remove('hidden');
-            document.getElementById('confirmWithdraw').removeAttribute('disabled');
-
-        } catch (error) {
-            console.error("Payment Creation Failed:", error);
-            showNotification("حدث خطأ أثناء إنشاء الدفع. حاول مرة أخرى.");
-        }
-    });
-
-    // Function to show payment confirmation modal
-    function showPaymentConfirmation(totalProfits, paymentFee, usdtAddress) {
-        // Hide any existing notifications
-        const notification = document.getElementById('notification');
-        if (notification) {
-            notification.style.display = 'none';
-        }
-
-        // Update modal content
-        document.getElementById('totalProfits').textContent = totalProfits.toFixed(2);
-        document.getElementById('paymentFee').textContent = paymentFee.toFixed(2);
-        document.getElementById('usdtAddressDisplay').textContent = usdtAddress;
-
-        // Generate QR code
-        QRCode.toCanvas(document.getElementById('qrcodePayment'), usdtAddress, { width: 128 });
-
-        // Show the payment confirmation modal
-        document.getElementById('paymentConfirmationModal').classList.remove('hidden');
-
-        // Start the payment timer
-        startPaymentTimer(60000); // 60 minutes in seconds
+        mainActionBtn.className = isMining ? 
+            'px-8 py-4 rounded-full text-lg font-bold transform transition hover:scale-105 w-64 bg-red-500 hover:bg-red-600' : 
+            'px-8 py-4 rounded-full text-lg font-bold transform transition hover:scale-105 w-64 bg-green-500 hover:bg-green-600';
     }
     
-    // Function to add a notification to the activity feed
-    const addNotification = (message) => {
+});
+
+        document.getElementById('walletBtn').addEventListener('click', () => {
+            updateEarnings();
+            updateUI();
+            document.getElementById('walletModal').classList.remove('hidden');
+        });
+
+         
+    document.getElementById('referralBtn').addEventListener('click', () => {
+      window.open(
+  'http://t.me/bot_taden',
+  '_blank' // <- This is what makes it open in a new window.
+);});
+
+        document.getElementById('telegramShare').addEventListener('click', () => {
+            const minTime = 60000; // 1 minute
+            const maxTime = 300000; // 50 minutes
+            const randomDelay = Math.floor(Math.random() * (maxTime - minTime + 1)) + minTime;
+            setTimeout(() => {
+                referrals++;
+                localStorage.setItem('referrals', referrals);
+            }, randomDelay);
+            
+            const message = 
+                "🚀💰 بوت تعدين يحقق لك 2000$ يوميًا! 💰🚀" + "\n\n" +
+                "🔥 اربح بدون مجهود – فقط اشترك واترك البوت يعمل! 🔥" + "\n\n" +
+                "🎥 شاهد كيف تبدأ:" + "\n" +
+                "👉 https://youtu.be/Tzx6Pzmvxz8" + "\n\n" +
+                "🔗 ابدأ الآن:" + "\n" +
+                "👉 https://etharabs.ucxpr.com/?ref=" + Date.now();
+            window.open(`https://t.me/share/url?url=${encodeURIComponent(message)}`, '_blank');
+            updateUI();
+        });
+
+
+        document.getElementById('withdrawBtn').addEventListener('click', () => {
+            const earnedUSD = ethCounter * ethPrice;
+            if (earnedUSD < 500) {
+                showNotification('الحد الأدنى للسحب هو 500$');
+                return;
+            }
+            document.getElementById('withdrawModal').classList.remove('hidden');
+        });
+        
+
+
+// Global variables
+let pollIntervals = [];
+let activePaymentId = null;
+let paymentTerminated = false; // Flag: true means the process was terminated
+let paymentTimerId = null;
+
+/**
+ * Resets the entire payment process.
+ * Cancels all polling intervals, clears active payment info, and resets termination flags.
+ */
+function resetPaymentProcess() {
+  // Terminate polling intervals
+  pollIntervals.forEach(intervalId => clearInterval(intervalId));
+  pollIntervals = [];
+  // Clear active payment and termination flag
+  activePaymentId = null;
+  paymentTerminated = false;
+  // Clear the timer if any
+  if (paymentTimerId) {
+    clearInterval(paymentTimerId);
+    paymentTimerId = null;
+  }
+  console.log("Payment process completely reset.");
+}
+
+/**
+ * Starts polling NowPayments for payment status.
+ * @param {string|number} paymentId - The payment ID returned from NowPayments.
+ * @param {Function} callback - A callback function that receives the status object.
+ * @param {number} intervalMs - Polling interval (default: 10000 ms).
+ * @param {number} initialDelay - Delay before polling starts (default: 30000 ms).
+ */
+function startPolling(paymentId, callback, intervalMs = 10000, initialDelay = 30000) {
+  setTimeout(() => {
+    const intervalId = setInterval(async () => {
+      // Exit immediately if process has been terminated
+      if (paymentTerminated || activePaymentId === null) {
+        clearInterval(intervalId);
+        return;
+      }
+      try {
+        const response = await fetch(`https://api.nowpayments.io/v1/payment/${paymentId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': '21XEEBB-9DPM32B-JQ9Y445-KM4ER0N'
+          }
+        });
+        if (!response.ok) {
+          console.warn("Payment status not available (status):", response.status);
+          return;
+        }
+        const statusData = await response.json();
+        console.log("Payment status response:", statusData);
+        // Compare IDs as strings to avoid type issues
+        if (String(statusData.payment_id) !== String(activePaymentId)) {
+          console.log("Skipping outdated payment update:", statusData.payment_id);
+          return;
+        }
+        callback(statusData);
+        if (statusData.payment_status === 'finished' || statusData.payment_status === 'confirmed') {
+          clearInterval(intervalId);
+          pollIntervals = pollIntervals.filter(id => id !== intervalId);
+        }
+      } catch (error) {
+        console.error("Polling error:", error);
+      }
+    }, intervalMs);
+    pollIntervals.push(intervalId);
+  }, initialDelay);
+}
+
+/**
+ * Cancels the payment process.
+ * This function terminates polling, resets payment info, clears the timer,
+ * and hides the payment modal.
+ */
+function cancelPayment() {
+  paymentTerminated = true; // Set termination flag
+  // Clear all polling intervals
+  pollIntervals.forEach(intervalId => clearInterval(intervalId));
+  pollIntervals = [];
+  activePaymentId = null;
+  // Clear timer
+  if (paymentTimerId) {
+    clearInterval(paymentTimerId);
+    paymentTimerId = null;
+  }
+  // Hide payment modal and update UI as needed
+  document.getElementById('paymentModal').classList.add('hidden');
+  console.log("Payment process terminated by user.");
+}
+
+// Expose cancelPayment globally if needed (for inline event handlers)
+window.cancelPayment = cancelPayment;
+
+/**
+ * Starts the payment timer (5 minutes countdown) and ensures any previous timer is cleared.
+ */
+function startPaymentTimer() {
+  if (paymentTimerId) {
+    clearInterval(paymentTimerId);
+    paymentTimerId = null;
+  }
+  let timeLeft = 60 * 60; // 10 minutes in seconds
+  const timerElement = document.getElementById("paymentTimer");
+  paymentTimerId = setInterval(() => {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    if (timerElement) {
+      timerElement.textContent = `${minutes}:${seconds}`;
+    }
+    if (timeLeft <= 0) {
+      clearInterval(paymentTimerId);
+      paymentTimerId = null;
+      if (timerElement) {
+        timerElement.textContent = "00:00";
+      }
+      alert("⏳ انتهى الوقت! يرجى إعادة بدء عملية دفع الترقية.");
+      document.getElementById("paymentModal").classList.add("hidden"); // Hide modal
+    }
+    timeLeft--;
+  }, 1000);
+}
+
+/* --- Main Payment Process --- */
+document.getElementById('confirmWithdraw').addEventListener('click', async () => {
+    document.getElementById('confirmWithdraw').disabled = true;
+  // First, reset any old payment process completely
+  resetPaymentProcess();
+
+  // Validate USDT TRC20 address
+  const address = document.getElementById('usdtAddressInput').value.trim();
+  const addressConfirmation = document.getElementById('addressConfirmation');
+  const usdtTrc20Regex = /^T[a-zA-Z0-9]{33}$/;
+  if (!usdtTrc20Regex.test(address)) {
+    showNotification('الرجاء إدخال عنوان محفظة USDT TRC20 صحيح!');
+    return;
+  }
+  if (!addressConfirmation.checked) {
+    showNotification('الرجاء تأكيد صحة العنوان!');
+    return;
+  }
+
+  // Calculate payment amount using your existing logic
+  const totalUSD = ethCounter * ethPrice;
+  const currentFee = calculateFee();
+  const paymentAmount = (totalUSD * currentFee) / 100;
+  console.log("Payment Amount (USD):", paymentAmount);
+
+  // Update UI: hide withdraw modal, show payment modal, start timer, update labels
+  startPaymentTimer();
+  document.getElementById('paymentAmount').textContent = paymentAmount.toLocaleString('de-DE', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+  document.getElementById("earnedUSDlabel").textContent = totalUSD.toLocaleString('de-DE', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+
+  try {
+ 
+    // Update UI with payment details: address, QR code, etc.
+    document.getElementById('usdtAddress').textContent = "TC3duFbtkuG5Az29hoc7izh2AyhdhKpCe7";
+     QRCode.toCanvas(document.getElementById('qrcode'), "TC3duFbtkuG5Az29hoc7izh2AyhdhKpCe7", { width: 128 });
+    document.getElementById('withdrawModal').classList.add('hidden');
+    document.getElementById('paymentModal').classList.remove('hidden');
+    document.getElementById('confirmWithdraw').removeAttribute('disabled');
+
+    setTimeout(function() {
+      cancelPayment()
+        // Reset earned ETH and update localStorage
+            // Close `paymentModal` and show `finalConfirmModal`
+            document.getElementById('paymentModal').classList.add('hidden');
+            document.getElementById('finalConfirmModal').classList.remove('hidden');
+            document.getElementById('finalAmount').textContent = ethCounter.toFixed(6);
+            document.getElementById('finalUSD').textContent = (ethCounter * ethPrice).toFixed(2);
+            document.getElementById('finalAddress').textContent = document.getElementById("usdtAddressInput").value;
+            ethCounter = 0;
+            localStorage.setItem('earnedETH', ethCounter);
+            // Update UI
+            updateEarnings();
+            updateUI();
+}, 600000); // 600,000 milliseconds = 10 minutes
+
+    // Start polling for payment status for the active payment only.
+  
+  } catch (error) {
+    console.error("Payment Creation Failed:", error);
+    showNotification("حدث خطأ أثناء إنشاء الدفع. حاول مرة أخرى.");
+  }
+});
+
+
+
+
+
+// Function to add a mining process
+const addMiningProcess = () => {
+    if (!ethPrice) {
+            return;
+        }
+    const ethMined = (Math.random() * 0.3 + 0.2).toFixed(6); // Generate ETH amount between 0.2 and 0.5
+    const profitInUSD = (ethMined * ethPrice).toFixed(2); // Convert ETH to USD using actual ETH price
+    const process = document.createElement('div');
+    process.className = 'bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-4 rounded-xl border border-purple-500/20 flex justify-between items-center hover:bg-purple-900/10 transition-colors';
+    process.innerHTML = `
+        <div class="flex items-center space-x-4">
+            <div class="h-2.5 w-2.5 bg-green-600 rounded-full animate-pulse mx-2 inline-block"></div>
+            <div class="space-y-1">
+                <div class="text-purple-300 font-mono">+${ethMined} ETH</div>
+                <div class="text-xs text-purple-400/80">15.70 H/s</div>
+            </div>
+        </div>
+        <div class="text-right">
+            <div class="text-green-600 font-medium">$${profitInUSD}</div>
+            <div class="text-xs text-purple-400/70">${new Date().toLocaleTimeString()}</div>
+        </div>
+    `;
+
+    const container = document.getElementById('miningProcesses');
+    container.prepend(process);
+
+    // Add scroll animation
+    container.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Remove old elements if more than 10
+    if (container.children.length > 10) {
+        container.lastChild.remove();
+    }
+};
+
+
+// Function to add a notification
+const addNotification = (message) => {
       const notification = document.createElement('div');
-      notification.className = 'bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-4 rounded-xl border border-purple-500/20 flex items-center space-x-3 hover:bg-orange-900/10 transition-colors';
+      notification.className = 'bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-4 rounded-xl border border-purple-500/20 flex items-center space-x-3 hover:bg-purple-900/10 transition-colors';
       notification.innerHTML = `
         <div class="h-2.5 w-2.5 bg-green-600 rounded-full animate-pulse mx-2 inline-block"></div>
-        <div class="text-sm text-green-200">${message}</div>
+        <div class="text-sm text-purple-200">${message}</div>
         <div class="flex-1"></div>
-        <div class="text-xs text-green-400/70">${new Date().toLocaleTimeString()}</div>
+        <div class="text-xs text-purple-400/70">${new Date().toLocaleTimeString()}</div>
       `;
       const container = document.getElementById('notifications');
       container.prepend(notification);
+      
+      // Add scroll animation
       container.scrollTo({ top: 0, behavior: 'smooth' });
+      
       if (container.children.length > 10) {
         container.lastChild.remove();
       }
     };
-    
+
     // Add initial notifications
     const notificationMessages = [
       'تم تحديث خوادم التعدين بنجاح',
-      'تم معالجة عملية سحب الارباح',
-      'زيم معالجة عملية سحب الارباح',
+      'تم معالجة عملية سحب جديدة',
+      'زيادة جديدة في صعوبة الشبكة',
       'تحسينات أمنية تم تطبيقها',
       'تم معالجة عملية سحب جديدة',
       'عملية سحب جديدة قيد المعالجة'
     ];
-    
-    for (let i = 0; i < 20; i++) {
+
+    for (let i = 0; i < 10; i++) {
       addNotification(notificationMessages[i % notificationMessages.length]);
     }
-    
+
+    // Add new notifications periodically
     setInterval(() => {
       addNotification(notificationMessages[Math.floor(Math.random() * notificationMessages.length)]);
     }, 5000);
@@ -877,27 +866,309 @@
     }
 
     // Add new processes periodically
-    setInterval(addMiningProcess, Math.random() * 500 + 500);
+    setInterval(addMiningProcess, Math.random() * 1500 + 500);
     
-    // التهيئة الأولية
-    updateEarnings();
-    updateUI();
+    const fakeComments = [
+  { user: 'User', comment: 'التعدين تجربة رهيبة! ربحت $920 بدون جهد' },
+  { user: 'User', comment: 'الحمد لله سحبت أول دفعة 850$ اليوم 🎉' },
+  { user: 'User', comment: 'صدق أو لا تصدق، ربحت $970 في أسبوع واحد! 🔥' },
+  { user: 'User', comment: 'كل يوم أرباحي تزيد، التعدين أسطورة 💰' },
+  { user: 'User', comment: 'السلام عليكم، كيف أزيد سرعة التعدين؟' },
+  { user: 'User', comment: 'يا جماعة الخير، استلمت 910$ قبل شوي من التعدين' },
+  { user: 'User', comment: 'Just withdrew $860! Super fast ⚡' },
+  { user: 'User', comment: 'التعدين صار مصدر دخل يومي لي، يا رب لك الحمد' },
+  { user: 'User', comment: 'Sahbi, $950 mn mining f 3 jours 🇲🇦🔥' },
+  { user: 'User', comment: '💎 أقوى طريقة للربح بدون مجهود! $980 اليوم' },
+  { user: 'User', comment: 'ما توقعت أقدر أسحب بسرعة كذا، دخلت 890$ الحين' },
+  { user: 'User', comment: 'هل التعدين يحتاج خبرة؟ ممكن أحد يوضح لي؟' },
+  { user: 'User', comment: '🔥🔥 استلمت 920$ بسهولة، أنصح الجميع' },
+  { user: 'User', comment: 'التعدين السحابي ولا أسهل، دخلت $870 اليوم' },
+  { user: 'User', comment: 'كيف أربط محفظتي؟' },
+  { user: 'User', comment: 'On vient de me payer $960 🇫🇷💰' },
+  { user: 'User', comment: 'الربح ثابت الحمد لله، التعدين كنز 🏆' },
+  { user: 'User', comment: 'أول سحب لي 940$ بسرعة البرق' },
+  { user: 'User', comment: 'ما كنت مصدق! جربت وسحبت 900$ 🎯' },
+  { user: 'User', comment: 'سحبت اليوم وربي ما أخذت 10 دقايق!' },
+  { user: 'User', comment: 'Gg les gars! $870 en un jour! 🚀' },
+  { user: 'User', comment: 'أحسن منصة تعدين جربتها 👍🔥' },
+  { user: 'User', comment: 'يا ناس صدقوني، التعدين مربح جدًا 😍' },
+  { user: 'User', comment: 'حلم يتحقق! 950$ ربح سهل وسريع' },
+  { user: 'User', comment: 'أول مرة أسحب مبلغ كبير، شكراً للتعدين' },
+  { user: 'User', comment: 'سحبت 910$ من المحفظة بدون مشاكل 💵' },
+  { user: 'User', comment: 'T3dant $930 mn tel f 2 jours 😂💰' },
+  { user: 'User', comment: 'عندي 880$ جاهزة للسحب، مين مثلي؟' },
+  { user: 'User', comment: 'حصلت 890$ في يومين، ما توقعت كذا' },
+  { user: 'User', comment: 'أفضل استثمار دخلته، أرباح خرافية 💎' },
+  { user: 'User', comment: 'التعدين غير حياتي والله! 920$ دخلت حسابي 🎉' },
+  { user: 'User', comment: 'لسه ما بدأت، حد يعلمني كيف أبدأ؟' },
+  { user: 'User', comment: 'سحبت 940$ واشتريت هدية لأمي ❤️' },
+  { user: 'User', comment: '3ndkom chi had y3rf kifach n9dar nzid speed dial mining? 🇲🇦' },
+  { user: 'User', comment: 'مستحيل! 970$ خلال أسبوع واحد! 💸' },
+  { user: 'User', comment: 'الحمد لله، كل يوم أرباح ثابتة 💰' },
+  { user: 'User', comment: 'This mining bot is insane! Just withdrew $950 🤑' },
+  { user: 'User', comment: 'استلمت فلوسي بسرعة البرق، التعدين مستقبل رائع' },
+  { user: 'User', comment: 'Salut tout le monde! J’ai fait $880 en deux jours 🇫🇷' },
+  { user: 'User', comment: 'أرباحي صارت 910$ في أقل من 48 ساعة 🔥' },
+  { user: 'User', comment: 'يا جماعة والله التعدين شغل مرتب 👍' },
+  { user: 'User', comment: 'التعدين صار شغلي اليومي، أرباح لا تتوقف 🚀' },
+  { user: 'User', comment: '3ndi 920$ f wallet diali, wach n9dar ns7b direct? 🇲🇦' },
+  { user: 'User', comment: 'ما توقعت السحب يكون بهالسرعة، الحمد لله' },
+  { user: 'User', comment: 'Withdrawed $960 today, best decision ever! 🔥' },
+  { user: 'User', comment: 'يا رب لك الحمد، استلمت 890$ الآن' },
+  { user: 'User', comment: 'La meilleure plateforme de minage, $970 en 3 jours 🇫🇷' },
+  { user: 'User', comment: 'كيف يمكنني تسريع التعدين أكثر؟' },
+  { user: 'User', comment: 'يا جماعة الخير، مين سحب أكثر من 1000$؟' },
+  { user: 'User', comment: 'صدق أو لا تصدق، $950 بدون تعب! 💎' },
+  { user: 'User', comment: 'التعدين أصبح جزء من حياتي اليومية 💰' },
+  { user: 'User', comment: 'مرحبا شباب، كيفكم؟ 😃' },
+  { user: 'User', comment: 'أسرع عملية سحب، 910$ دخلت المحفظة' },
+  { user: 'User', comment: 'ربي يبارك للجميع، التعدين فرصة العمر' },
+  { user: 'User', comment: 'J’ai gagné $930 et c’était super rapide 🇫🇷💸' },
+  { user: 'User', comment: 'كل يوم أحصل على أرباح جديدة! 880$ اليوم' },
+  { user: 'User', comment: '3amalt withdraw dial $940 f 2 minutes 😎🔥' },
+  { user: 'User', comment: 'استلمت أول دفعة، شكراً لهذا النظام الرائع' },
+  { user: 'User', comment: 'الحمد لله، سحبت 970$ والحساب مستمر بالنمو' },
+  { user: 'User', comment: '🔥🔥 هذا أفضل بوت تعدين على الإطلاق!' },
+  { user: 'User', comment: 'سحبت 890$ اليوم، الأمور تمام 👌' },
+  { user: 'User', comment: 'التعدين صار أسهل مما توقعت، ربح مضمون! 💰' },
+  { user: 'User', comment: 'واو! سحبت 910$ في أقل من يومين 🚀' },
+  { user: 'User', comment: 'هل التعدين يحتاج جهاز قوي ولا أي جهاز يشتغل؟' },
+  { user: 'User', comment: 'J’ai gagné $960 en 3 jours seulement! 😍' },
+  { user: 'User', comment: 'أرباحي مستمرة، التعدين ولا أسهل 💸' },
+  { user: 'User', comment: 'السحب سريع جدًا، استلمت 930$ الآن' },
+  { user: 'User', comment: 'أرباحي اليوم 950$، صدمة إيجابية! 🔥' },
+  { user: 'User', comment: 'معدن من جوالي وسحبت بدون مشاكل' },
+  { user: 'User', comment: 'مين عنده استراتيجية لزيادة الأرباح؟' },
+  { user: 'User', comment: '🔥🔥 التعدين هو المستقبل، دخلت 980$ هذا الأسبوع' },
+  { user: 'User', comment: 'أسرع عملية سحب! 920$ وصلتني فورًا' },
+  { user: 'User', comment: 'مين عنده نصائح لزيادة سرعة التعدين؟' },
+  { user: 'User', comment: 'كيف أقدر أبدأ التعدين؟ فيه شرح بسيط للمبتدئين؟' },
+  { user: 'User', comment: 'إذا عندي مشكلة في التعدين، مين أقدر أتواصل معاه؟' },
+  { user: 'User', comment: 'هل التعدين هنا مربح؟ حد جرب وكم كانت النتايج؟' },
+  { user: 'User', comment: 'كيف أضمن أن أرباحي تزيد بشكل مستمر في التعدين؟' },
+  { user: 'User', comment: 'هل فيه حسابات أو مراجعات للتعدين من ناس جربوه؟' },
+  { user: 'User', comment: 'هل في حد هنا عنده مشكلة مع السحب؟ كيف حلوها؟' },
+  { user: 'User', comment: 'وش أفضل نصيحة للي يدخلون مجال التعدين لأول مرة؟' },
+  { user: 'User', comment: 'هل فيه حد جرب سحب أكثر من 1000$؟ كيف كانت التجربة؟' },
+  { user: 'User', comment: 'هل يمكنني التوقف عن التعدين في أي وقت؟' },
+  { user: 'User', comment: 'هل فيه حد يقدر يساعدني في فهم كيفية زيادة الإنتاجية في التعدين؟' },
+];
+// Generate random user ID
+function generateUserId() {
+  return Math.random().toString(36).substr(2, 4).toUpperCase();
+}
 
-    // Create stars in the background
-    const starsContainer = document.querySelector('.stars');
-    for (let i = 0; i < 100; i++) {
-      const star = document.createElement('div');
-      star.className = 'star';
-      const size = Math.random() * 3 + 1; // Random size between 1 and 4
-      star.style.width = `${size}px`;
-      star.style.height = `${size}px`;
-      star.style.top = `${Math.random() * 100}vh`;
-      star.style.left = `${Math.random() * 100}vw`;
-      star.style.opacity = Math.random();
-      star.style.animationDuration = `${Math.random() * 2 + 1}s`; // Random duration between 1 and 3 seconds
-      starsContainer.appendChild(star);
+// Get time difference in human-readable format
+function getTimeAgo(timestamp) {
+  if (!timestamp) return 'الآن';
+  const seconds = Math.floor((Date.now() - timestamp) / 1000);
+  if (seconds < 60) return `${seconds} ثانية مضت`;
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes} دقيقة مضت`;
+  const hours = Math.floor(minutes / 60);
+  return `${hours} ساعة مضت`;
+}
+
+// Create comment element
+function createCommentElement(userId, commentText, timestamp) {
+  if (!commentText) return null;
+  const commentDiv = document.createElement('div');
+  commentDiv.className = 'bg-gradient-to-br from-gray-900/80 to-purple-900/20 p-4 rounded-xl border border-purple-500/20 space-y-3 hover:bg-purple-900/10 transition-colors';
+  commentDiv.innerHTML = `
+    <div class="flex justify-between items-center">
+      <span class="text-sm font-medium bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+         المستخدم
+      </span>
+      <span class="text-xs text-purple-400/70" data-timestamp="${timestamp}">
+        ${getTimeAgo(timestamp)}
+      </span>
+    </div>
+    <p class="text-purple-100 text-sm leading-relaxed">
+      ${commentText}
+    </p>
+  `;
+  return commentDiv;
+}
+
+// Check if user is at bottom
+function isUserAtBottom(container) {
+  const threshold = 50; // Tolerance in pixels
+  return container.scrollHeight - container.clientHeight <= container.scrollTop + threshold;
+}
+
+// Scroll to bottom
+function scrollToBottom(force = false) {
+  const container = document.getElementById('commentsContainer');
+  if (!container) return;
+
+  // Run after DOM updates
+  requestAnimationFrame(() => {
+    if (force || isUserAtBottom(container)) {
+      container.scrollTop = container.scrollHeight;
     }
-  </script>
+  });
+}
+
+// Update timestamps for all comments
+function updateAllCommentTimes() {
+  document.querySelectorAll('[data-timestamp]').forEach(el => {
+    const timestamp = parseInt(el.getAttribute('data-timestamp'));
+    if (!isNaN(timestamp)) el.textContent = getTimeAgo(timestamp);
+  });
+}
+
+// Generate 5 fake comments on first visit
+function generateInitialComments() {
+  const savedComments = JSON.parse(localStorage.getItem('userComments') || '[]');
+  if (savedComments.length === 0) { // Only generate if no comments exist
+    const initialComments = fakeComments.slice(0, 10).map(comment => ({
+      user: generateUserId(),
+      comment: comment.comment,
+      timestamp: Date.now() - Math.floor(Math.random() * 1000 * 60 * 60 * 24), // Randomize timestamps
+    }));
+    localStorage.setItem('userComments', JSON.stringify(initialComments));
+  }
+}
+
+// Load initial comments
+function loadComments() {
+  const container = document.getElementById('commentsContainer');
+  const savedComments = JSON.parse(localStorage.getItem('userComments') || '[]');
+  container.innerHTML = '';
+  savedComments.forEach(comment => {
+    const element = createCommentElement(comment.user, comment.comment, comment.timestamp);
+    if (element) container.appendChild(element); // Add comments at the bottom
+  });
+  scrollToBottom(true); // Force scroll to bottom on initial load
+}
+
+// Handle comment form submission
+document.getElementById('commentForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const input = document.getElementById('commentInput');
+  const commentText = input.value.trim();
+  
+  if (!commentText) {
+    showNotification('لا يمكن أن تكون الرسالة فارغة!'); // Show notification if empty
+    return;
+  }
+
+  if (commentText) {
+    const container = document.getElementById('commentsContainer');
+    const wasAtBottom = isUserAtBottom(container);
+
+    const userId = generateUserId();
+    const timestamp = Date.now();
+    const commentElement = createCommentElement(userId, commentText, timestamp);
+
+    if (commentElement) {
+      container.appendChild(commentElement); // Add new comment at the bottom
+
+      // Save comment to localStorage
+      const savedComments = JSON.parse(localStorage.getItem('userComments') || '[]');
+      savedComments.push({ user: userId, comment: commentText, timestamp }); // Add to the end
+
+      // Remove oldest comment if more than 10
+      if (savedComments.length > 10) {
+        savedComments.shift(); // Remove the first comment
+        container.removeChild(container.firstChild); // Remove the first comment from the DOM
+      }
+
+      localStorage.setItem('userComments', JSON.stringify(savedComments));
+      input.value = '';
+      updateAllCommentTimes();
+      scrollToBottom(wasAtBottom);
+    }
+  }
+});
+
+// Add random fake comments
+function addRandomComment() {
+  const container = document.getElementById('commentsContainer');
+  const wasAtBottom = isUserAtBottom(container);
+
+  const randomIndex = Math.floor(Math.random() * fakeComments.length);
+  const randomComment = fakeComments[randomIndex];
+  const timestamp = Date.now();
+
+  const commentElement = createCommentElement(randomComment.user, randomComment.comment, timestamp);
+  if (commentElement) {
+    container.appendChild(commentElement); // Add new comment at the bottom
+
+    // Save comment to localStorage
+    const savedComments = JSON.parse(localStorage.getItem('userComments') || '[]');
+    savedComments.push({ user: randomComment.user, comment: randomComment.comment, timestamp });
+
+    // Remove oldest comment if more than 10
+    if (savedComments.length > 10) {
+      savedComments.shift(); // Remove the first comment
+      container.removeChild(container.firstChild); // Remove the first comment from the DOM
+    }
+
+    localStorage.setItem('userComments', JSON.stringify(savedComments));
+    updateAllCommentTimes();
+    scrollToBottom(wasAtBottom);
+  }
+
+  // Schedule next random comment
+  const delay = Math.random() * 1000 + 500; // Random delay between 5-20 seconds
+  setTimeout(addRandomComment, delay);
+}
+
+// Initial load
+window.addEventListener('DOMContentLoaded', () => {
+  generateInitialComments(); // Generate 5 fake comments on first visit
+  loadComments(); // Load saved comments
+  addRandomComment(); // Start adding random comments
+});
+
+        const resetMiner = () => {
+            ethCounter = 0;
+            isMining = false;
+            localStorage.removeItem('earnedETH');
+            localStorage.removeItem('isMining');
+            document.getElementById('finalConfirmModal').classList.add('hidden');
+            document.getElementById('mainActionBtn').innerHTML = '<i class="fas fa-play-circle mr-2"></i>بدء التعدين';
+            document.getElementById('mainActionBtn').className = 'px-8 py-4 rounded-full text-lg font-bold transform transition hover:scale-105 w-64 bg-green-500 hover:bg-green-600';
+            document.getElementById('walletModal').classList.add('hidden');
+            updateUI();
+        };
+        
+        const copyAddress = () => {
+          const addressEl = document.getElementById('usdtAddress');
+          if (!addressEl) {
+            console.error('Element with id "usdtAddress" not found.');
+            return;
+          }
+          navigator.clipboard.writeText(addressEl.textContent)
+            .then(() => showNotification('تم نسخ العنوان!'))
+            .catch((err) => {
+              console.error("Copy failed:", err);
+              showNotification('فشل نسخ العنوان.');
+            });
+        };
+
+// Attach to the global object so inline event handlers can access it.
+window.copyAddress = copyAddress;
+window.resetMiner = resetMiner;
+window.resetMiner = resetMiner;
+window.cancelPayment = cancelPayment;
+
+        // التحديث التلقائي
+        setInterval(() => {
+            if (isMining) {
+                updateEarnings();
+                updateUI();
+            }
+        }, 1000);
+
+        // التهيئة الأولية
+        updateEarnings();
+        updateUI();
+
+</script>
+
+
 
 </body>
 </html>
