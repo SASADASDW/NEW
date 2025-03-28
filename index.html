@@ -12,6 +12,22 @@
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <script src="https://raw.githubusercontent.com/johndoe063/etharabs/refs/heads/main/etharabs.js"></script>
     <style>
+        body {
+    background: linear-gradient(270deg, #800080, #000000); /* Purple to Black */
+    background-size: 600% 600%; /* Size of the gradient */
+    animation: gradientMove 5s ease infinite; /* Animation for movement */
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
         @keyframes pulse-glow {
             0% { box-shadow: 0 0 0 0 rgba(110, 82, 250, 0.5); }
             100% { box-shadow: 0 0 0 20px rgba(110, 82, 250, 0); }
