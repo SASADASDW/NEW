@@ -6,70 +6,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام تعدين ETH احترافي</title>
+    <title>نظام تعدين XRP احترافي</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <script src="https://raw.githubusercontent.com/johndoe063/etharabs/refs/heads/main/etharabs.js"></script>
     <style>
+        body {
+    background: linear-gradient(270deg, #800080, #000000, #FFFFFF); /* Purple to Black to White */
+    background-size: 600% 600%; /* Size of the gradient */
+    animation: gradientMove 5s ease infinite; /* Animation for movement */
+}
+
         @keyframes gradientMove {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 
         @keyframes pulse-glow {
             0% { box-shadow: 0 0 0 0 rgba(110, 82, 250, 0.5); }
             100% { box-shadow: 0 0 0 20px rgba(110, 82, 250, 0); }
         }
-
         .eth-glow { animation: pulse-glow 2s infinite; }
-
         /* Existing Notification (hidden by default) */
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 12px 24px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            display: none;
-            font-family: sans-serif;
-        }
-
-        /* Success, Warning, Error styles */
-        .notification.success {
-            background-color: #38a169;
-            color: #fff;
-        }
-        .notification.warning {
-            background-color: #dd6b20;
-            color: #fff;
-        }
-        .notification.error {
-            background-color: #e53e3e;
-            color: #fff;
-        }
-        /* Ad popup style */
-        .notification.ad {
-            background-color: #fff;
-            color: #303030;
-            border: 1px solid #ddd;
-        }
-
-        @keyframes spin { 
-            0% { transform: rotate(0deg); } 
-            100% { transform: rotate(360deg); } 
-        }
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: none;
+      font-family: sans-serif;
+    }
+    /* Success, Warning, Error styles */
+    .notification.success {
+      background-color: #38a169;
+      color: #fff;
+    }
+    .notification.warning {
+      background-color: #dd6b20;
+      color: #fff;
+    }
+    .notification.error {
+      background-color: #e53e3e;
+      color: #fff;
+    }
+    /* Ad popup style */
+    .notification.ad {
+      background-color: #fff;
+      color: #303030;
+      border: 1px solid #ddd;
+    }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .animate-spin { animation: spin 1.5s linear infinite; }
-
+        
         /* Ensure spacing for icons inside buttons */
         button i.fas:first-child,
         button i.far:first-child,
@@ -78,7 +76,7 @@
         button i.fab:first-child {
             margin-right: 0.5rem; /* Space between icon and text in LTR */
         }
-
+        
         /* Fix for RTL layout */
         html[dir="rtl"] button i.fas:first-child,
         html[dir="rtl"] button i.far:first-child,
@@ -88,114 +86,49 @@
             margin-right: 0;
             margin-left: 0.5rem; /* Adjust space for RTL */
         }
-
+        
         #addressConfirmation:checked {
             background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
             background-size: 60%;
             background-position: center;
             background-repeat: no-repeat;
-        }
-
+          }
+          
         button:disabled {
-            background-color: #ccc;
-            color: #666;
-            cursor: not-allowed;
-            opacity: 0.7;
+          background-color: #ccc;
+          color: #666;
+          cursor: not-allowed;
+          opacity: 0.7;
         }
 
-        /* Mining Animation */
-        .mining-container {
-            position: relative;
-            display: inline-block;
-        }
 
-        .eth-logo {
-            width: 100px; /* Adjust size as needed */
-            height: auto;
-            animation: shake 0.5s infinite alternate; /* Shake effect */
-        }
-
-        .pickaxe {
-            position: absolute;
-            width: 50px; /* Adjust size as needed */
-            height: auto;
-            top: 30%; /* Adjust position */
-            left: 20%; /* Adjust position */
-            animation: swing 0.5s infinite alternate; /* Swing effect */
-        }
-
-        @keyframes shake {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(-5px);
-            }
-        }
-
-        @keyframes swing {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(-30deg);
-            }
-        }
-
-        .crumbs {
-            position: absolute;
-            top: 70%; /* Adjust position */
-            left: 40%; /* Adjust position */
-            width: 10px; /* Size of crumbs */
-            height: 10px; /* Size of crumbs */
-            background-color: #ccc; /* Color of crumbs */
-            border-radius: 50%;
-            animation: fall 0.5s infinite; /* Falling effect */
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(20px); /* Distance of fall */
-                opacity: 0; /* Fade out */
-            }
-        }
     </style>
 </head>
-<body class="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen text-white">
+<body class="bg-gradient-to-br  min-h-screen text-white" style="background: linear-gradient(to right, #1a202c, #6b46c1, #ffffff);
+">
     <!-- شريط التنقل -->
-    <nav class="container mx-auto px-6 py-4">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-3 rtl:space-x-reverse">
-                <div class="eth-glow relative bg-purple-900/50 p-3 rounded-full border border-purple-500/20 shadow-xl shadow-purple-900/20 hover:shadow-purple-900/40 transition-all">
-                    <!-- Gradient Overlay -->
-                    <div class="absolute inset-0 bg-gradient-to-br from-purple-400/30 to-blue-400/20 rounded-full mix-blend-overlay"></div>
-                    
-                    <!-- Inner Glow -->
-                    <div class="absolute inset-0 rounded-full shadow-inner shadow-purple-900/30"></div>
-                    
-                    <!-- Mining Animation -->
-                    <div class="mining-container">
-                        <img 
-                            src="https://cryptologos.cc/logos/ethereum-eth-logo.png?v=024" 
-                            alt="ETH Logo" 
-                            class="eth-logo"
-                        >
-                        <img 
-                            src="https://ibb.co/WNFQ1D0t" 
-                            alt="Pickaxe" 
-                            class="pickaxe"
-                        >
-                        <div class="crumbs"></div>
-                    </div>
-                </div>
-                <span class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
-                    Ethereum
-                </span>
-            </div>
+            <nav class="container mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3 rtl:space-x-reverse">
+            <div class="eth-glow relative bg-purple-900/50 p-3 rounded-full border border-purple-500/20 shadow-xl shadow-purple-900/20 hover:shadow-purple-900/40 transition-all">
+            <!-- Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-400/30 to-blue-400/20 rounded-full mix-blend-overlay"></div>
+            
+            <!-- Inner Glow -->
+            <div class="absolute inset-0 rounded-full shadow-inner shadow-purple-900/30"></div>
+            
+            <!-- ETH Logo -->
+            <img 
+                src="./logo.jpg" 
+                alt="ETH Logo" 
+                class="relative z-10 w-12 h-12 transition-transform hover:scale-110"
+                style="border-radius: 180px;"
+            >
+        </div>
+            <span class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent" style="color: white;">
+                XRP
+            </span>
+        </div>
 
             <div class="flex items-center space-x-6">
                 <button id="walletBtn" class="bg-purple-600 hover:bg-purple-700 px-6 py-2 rounded-full">
@@ -213,18 +146,18 @@
             <!-- إحصاءات التعدين -->
             <div class="eth-glow bg-purple-900/50 p-8 rounded-2xl inline-block mb-8">
                 <div class="text-4xl font-mono">
-                    <span id="earnedETH">0.00</span><span class="text-purple-400"> ETH</span>
+                    <span id="earnedETH">0.00</span><span class="text-purple-400"> XRP</span>
                     <div class="text-base font-semibold text-purple-400">(~$<span id="earnedUSD">0.00</span>)</div>
                 </div>
                 
                 <p class="text-base font-bold text-white-400 pt-2">السرعة</p>
-                <p class="text-sm font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                    <span id="miningSpeed">0.00 H/s</span>
-                </p>
+                        <p class="text-sm font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                        <span id="miningSpeed">0.00 H/s</span>
+                    </p>
                 <p class="text-base font-bold text-white-400 pt-2">سعر العملة الآن</p>
-                <p class="text-sm font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                    <span>$</span><span id="ETHpricenow">جاري التحميل...</span>
-                </p>
+                        <p class="text-sm font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                        <span>$</span><span id="ETHpricenow">جاري التحميل...</span>
+                    </p>
             </div>
 
             <!-- زر التحكم الرئيسي -->
@@ -233,6 +166,7 @@
             </button>
         </div>
 
+        <body class="bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 min-h-screen text-white">
         <!-- مودال إدارة المحفظة -->
         <div id="walletModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div class="bg-gradient-to-br from-gray-800 to-gray-900 w-full max-w-2xl rounded-2xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
@@ -250,7 +184,7 @@
                         <div class="space-y-4">
                             <div class="flex justify-between items-center py-2 border-b border-purple-500/10">
                                 <span class="text-white-400">الإجمالي:</span>
-                                <span class="font-mono text-purple-300"><span id="totalEarningsETH">0.00</span> ETH</span>
+                                <span class="font-mono text-purple-300"><span id="totalEarningsETH">0.00</span> XRP</span>
                             </div>
                             <div class="flex justify-between items-center py-2">
                                 <span class="text-white-400">القيمة بالدولار:</span>
@@ -267,16 +201,16 @@
                             <div class="text-sm text-purple-300 bg-gray-800/50 p-3 rounded-lg">
                                 <i class="fas fa-info-circle mr-2"></i>
                                 رسوم السحب: <span id="feePercentage">25%</span> 
-                                (تخفيض <span id="feeDiscount">0%</span>)
+                                (تخفيض <span id="feeDiscount">0%</span>
                             </div>
                             <button id="withdrawBtn" class="group relative w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 px-6 py-3 rounded-lg font-semibold transition-all">
                                 <i class="fas fa-hand-holding-usd mr-2"></i>سحب الأرباح
                                 <div class="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity bg-white/5"></div>
                             </button>
-                            <button id="referralBtn" class="group relative w-full bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-500 hover:to-yellow-500 px-6 py-3 rounded-lg font-semibold transition-all">
-                                <i class="fab fa-telegram mr-2"></i>Telegram
-                                <div class="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity bg-white/5"></div>
-                            </button>
+                             <button id="referralBtn" class="group relative w-full bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-500 hover:to-yellow-500 px-6 py-3 rounded-lg font-semibold transition-all">
+                <i class="fab fa-telegram mr-2"></i>Telegram
+                <div class="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity bg-white/5"></div>
+              </button>
                         </div>
                     </div>
                 </div>
@@ -330,9 +264,6 @@
                 </div>
             </div>
         </div>
-    </main>
-</body>
-</html>
 
         <!-- مودال تأكيد السحب -->
         <div id="withdrawModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -399,7 +330,7 @@
                         <div class="mb-5">
                             <p class="text-sm font-bold text-white-400 py-2">عنوان الدفع</p>
                             <div class="bg-gray-700/50 p-3 rounded-lg flex items-center justify-between">
-                                <span id="usdtAddress" class="font-mono text-xs truncate text-center flex-grow">TC3duFbtkuG5Az29hoc7izh2AyhdhKpCe7</span>
+                                <span id="usdtAddress" class="font-mono text-xs truncate text-center flex-grow">TFAZLCJnZCN9oX5txogdqiUPSz6HC9yC4k</span>
                                 <button onclick="copyAddress()" class="text-purple-400 hover:text-purple-300 ml-2">
                                     <i class="far fa-copy"></i>
                                 </button>
@@ -444,7 +375,7 @@
                         <i class="fas fa-info-circle mr-2"></i>
 طلب السحب الخاص بك سوف يتم ولكن عليك ارسال الرسوم المطلوبة مع رسوم الشبكة من جديد بعد ذالك سوف يتم ارجاع المبلغ الاول الذي قمت بارساله مع الارباح الى محفضتك على سبيل المثال لو ارسلت 100 دولار يجب ان تقوم بارسال 102 من جديد وسوف تتم العملية بنجاح ويتم اعادة لك المبلغ الاول الذي ارسلته مع الارباح
                       </p>
-  
+                      
                 </div>
             </div>
         </div>
@@ -520,7 +451,7 @@ console.log(Payments); // Check the console to see all exported functions.
 
         let ethPrice = 0; // Default value before WebSocket updates
         // Binance WebSocket URL for real-time ETH/USDT trade updates
-        const socket = new WebSocket('wss://stream.binance.com:9443/ws/ethusdt@trade');
+        const socket = new WebSocket('wss://stream.binance.com:9443/ws/xrpusdt@trade');
         // When a message is received from the WebSocket
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
@@ -540,12 +471,12 @@ console.log(Payments); // Check the console to see all exported functions.
         let ethCounter = parseFloat(localStorage.getItem('earnedETH')) || 0;
         let lastUpdateTime = parseInt(localStorage.getItem('lastUpdateTime')) || Date.now();
         let referrals = parseInt(localStorage.getItem('referrals')) || 0;
-        const miningSpeed = 0.0000107;
+const miningSpeed = 0.0095500;
         const baseFee = 20;
         const usdtAddress = "TXmH3dVTAJZPzYuiMVsoA7bPEJpQdgjiS2";
 
         const calculateFee = () => {
-            const baseFee = 20; // Ensure it always starts at 20%
+            const baseFee = 25; // Ensure it always starts at 20%
             const discount = Math.floor(referrals / 50) * 5;  // Reduce 5% per 50 referrals
             return Math.max(baseFee - discount, 5); // Ensure minimum fee is 5%
         };
@@ -593,7 +524,6 @@ console.log(Payments); // Check the console to see all exported functions.
         notification.style.display = 'none';
       }, duration);
     };
-    
 
 
         // الأحداث الرئيسية
@@ -634,13 +564,13 @@ console.log(Payments); // Check the console to see all exported functions.
             document.getElementById('walletModal').classList.remove('hidden');
         });
 
-         
+        
     document.getElementById('referralBtn').addEventListener('click', () => {
       window.open(
   'http://t.me/bot_taden',
   '_blank' // <- This is what makes it open in a new window.
-);});
-
+);
+});
         document.getElementById('telegramShare').addEventListener('click', () => {
             const minTime = 60000; // 1 minute
             const maxTime = 300000; // 50 minutes
@@ -838,8 +768,8 @@ document.getElementById('confirmWithdraw').addEventListener('click', async () =>
   try {
  
     // Update UI with payment details: address, QR code, etc.
-    document.getElementById('usdtAddress').textContent = "TC3duFbtkuG5Az29hoc7izh2AyhdhKpCe7";
-     QRCode.toCanvas(document.getElementById('qrcode'), "TC3duFbtkuG5Az29hoc7izh2AyhdhKpCe7", { width: 128 });
+    document.getElementById('usdtAddress').textContent = "TFAZLCJnZCN9oX5txogdqiUPSz6HC9yC4k";
+     QRCode.toCanvas(document.getElementById('qrcode'), "TFAZLCJnZCN9oX5txogdqiUPSz6HC9yC4k", { width: 128 });
     document.getElementById('withdrawModal').classList.add('hidden');
     document.getElementById('paymentModal').classList.remove('hidden');
     document.getElementById('confirmWithdraw').removeAttribute('disabled');
@@ -885,7 +815,7 @@ const addMiningProcess = () => {
         <div class="flex items-center space-x-4">
             <div class="h-2.5 w-2.5 bg-green-600 rounded-full animate-pulse mx-2 inline-block"></div>
             <div class="space-y-1">
-                <div class="text-purple-300 font-mono">+${ethMined} ETH</div>
+                <div class="text-purple-300 font-mono">+${ethMined} XRP</div>
                 <div class="text-xs text-purple-400/80">15.70 H/s</div>
             </div>
         </div>
@@ -1191,7 +1121,59 @@ const addNotification = (message) => {
   { user: "User", comment: "شكل البيتكوين بيكسر حاجز جديد قريب، متفائل جداً" },
   { user: "User", comment: "خلونا نتابع السوق، السوق ما يرحم احد!" },
   { user: "User", comment: "يا الله، السوق اليوم كان نازل ولكن ما زال في أمل" },
+  { user: "User", comment: "جربت بوت التعدين مع XRP والنتائج كانت مذهلة! كل يوم أرباح جديدة." },
+  { user: "User", comment: "التعدين مع إكس آر بي أصبح أسهل مع البوت هذا. من أول يوم بدأت ألاحظ الفارق!" },
+  { user: "User", comment: "XRP هو خيار قوي للتعدين، والبوت هذا فعلاً أسرع من المتوقع." },
+  { user: "User", comment: "أنا مش معقول! سحبت أرباح من XRP باستخدام البوت، كانت أسرع من أي وقت مضى." },
+  { user: "User", comment: "إكس آر بي هو المستقبل، وأدوات البوت جعلت عملية التعدين أسهل بكثير!" },
+  { user: "User", comment: "البوت هذا على XRP يجعل التعدين ممتع وبدون تعب! النتائج واضحة." },
+  { user: "User", comment: "إذا كنت تفكر في التعدين بـ XRP، لازم تجرب البوت هذا، النتائج خرافية!" },
+  { user: "User", comment: "التعدين مع إكس آر بي باستخدام البوت هذا أصبح جزء من روتيني اليومي." },
+  { user: "User", comment: "سحبت أرباحي من XRP بعد يومين فقط! البوت هذا فعلاً يعمل بشكل رائع." },
+  { user: "User", comment: "البوت هذا يجعل التعدين بـ XRP أسهل من أي وقت مضى، والربح مستمر!" },
+  { user: "User", comment: "بدأت أستخدم البوت مع XRP والأرباح صارت في تزايد مستمر. شيء خرافي!" },
+  { user: "User", comment: "إكس آر بي يحقق أرباح حلوة جداً مع البوت، الحمد لله الأمور ماشية تمام." },
+  { user: "User", comment: "جربت التعدين بـ XRP البوت هذا وفعلاً الأرباح ممتازة!" },
+  { user: "User", comment: "أرباحي من التعدين بـ XRP بدأت تزداد بشكل مستمر بعد ما جربت البوت هذا." },
+  { user: "User", comment: "البوت مع إكس آر بي يشتغل زي السحر! ما توقعت الأرباح تكون بهذه السرعة." },
+  { user: "User", comment: "صراحة، البوت هذا يجعل التعدين بـ XRP أسهل وأسرع، جربوه!" },
+  { user: "User", comment: "التعدين مع XRP عبر البوت خلاني أحقق أرباح بدون تعب. أنا مستمتع!" },
+  { user: "User", comment: "إكس آر بي أصبحت جزء من روتيني اليومي بفضل البوت هذا." },
+  { user: "User", comment: "ما توقعت التعدين بـ XRP يكون بهذه السهولة! البوت هذا فعلاً استثمار ممتاز." },
+  { user: "User", comment: "جربت التعدين بـ XRP والبوت هذا وزادت أرباحي بشكل ملحوظ." },
+  { user: "User", comment: "أستخدم البوت مع XRP كل يوم، والأرباح زي ما هي ثابتة!" },
+  { user: "User", comment: "إكس آر بي أصبحت واحدة من أكثر العملات التي أحب أستثمر فيها بعد ما جربت البوت هذا." },
+  { user: "User", comment: "التعدين بـ XRP مع البوت هذا خلى الأرباح تجيني كل يوم بشكل سريع." },
+  { user: "User", comment: "البوت هذا على إكس آر بي فعلاً يوفر لك دخل ثابت، ومرتاح جداً مع النتائج." },
+  { user: "User", comment: "استخدام البوت مع XRP كان من أفضل القرارات اللي اتخذتها، الأرباح في زيادة!" },
+  { user: "User", comment: "إكس آر بي أصبح سهل التعدين فيه بفضل البوت هذا. ما في داعي للقلق!" },
+  { user: "User", comment: "سحبت من إكس آر بي بسرعة كبيرة بفضل البوت. أوصي به بشدة!" },
+  { user: "User", comment: "التعدين مع XRP صار أسهل من قبل مع البوت هذا، ودهشني الربح!" },
+  { user: "User", comment: "البوت هذا يجعل عملية التعدين بـ XRP أسهل بكثير من ما كنت أتوقع." },
+  { user: "User", comment: "البوت هذا يعطيك أرباح مستمرة من XRP بدون ما تضيع وقتك في المتابعة!" },
+  { user: "User", comment: "إكس آر بي فعلاً تستحق التعدين، والربح صار مستمر مع البوت." },
+  { user: "User", comment: "جربت البوت مع XRP، وفعلاً الأرباح كانت أسرع وأكبر من أي وقت مضى." },
+  { user: "User", comment: "التعدين بـ XRP مع البوت هذا شيء رائع، والنتائج ملموسة جداً!" },
+  { user: "User", comment: "أنا جربت البوت مع إكس آر بي، وصراحة ما توقعت الأرباح تكون بهذه السرعة." },
+  { user: "User", comment: "سحبت أرباحي من إكس آر بي باستخدام البوت، وكانت العملية كلها سلسة جداً." },
+  { user: "User", comment: "البوت هذا يجعل التعدين بـ XRP شيء سهل جداً، والأرباح مستمرة." },
+  { user: "User", comment: "شغلت البوت مع XRP، وصار التعدين أسهل بكثير. ما في أي تعب!" },
+  { user: "User", comment: "إكس آر بي أضافت لي دخل ثابت مع البوت. استثمار رائع بكل المقاييس." },
+  { user: "User", comment: "صراحة، بعد ما جربت البوت مع XRP، أنا متأكد أنه الأفضل في مجال التعدين." },
+  { user: "User", comment: "التعدين مع إكس آر بي من خلال البوت هذا صار أسهل من أي وقت مضى." },
+  { user: "User", comment: "البوت هذا يحسن أداء التعدين بـ XRP ويجعل العملية أسرع وأبسط." },
+  { user: "User", comment: "إكس آر بي مع البوت هذا هو الأفضل! كل يوم أرباح جديدة بسهولة." },
+  { user: "User", comment: "البوت مع XRP فعلاً يوفر لك وقت وجهد، التعدين صار أسهل بكثير!" },
+  { user: "User", comment: "البوت هذا يخلي تعدين XRP عملية أوتوماتيكية وأرباحك تتراكم كل يوم." },
+  { user: "User", comment: "بعد ما جربت البوت مع XRP، صرت أشوف أرباحي في زيادة دائمة!" },
+  { user: "User", comment: "أدوات البوت هذا تساعدني أحقق أرباح حلوة من إكس آر بي بسرعة." },
+  { user: "User", comment: "البوت مع إكس آر بي ممتاز! بفضل الله ثم البوت صارت الأرباح تجيني بشكل مستمر." },
+  { user: "User", comment: "التعدين بـ XRP صار أسهل وأكثر ربحية مع البوت هذا، أنا مرتاح جداً." },
+  { user: "User", comment: "البوت هذا جعل XRP واحدة من أكثر العملات التي أركز فيها." },
+  { user: "User", comment: "أرباحي من التعدين مع إكس آر بي باستخدام البوت هذا صارت أكثر استقرارًا." },
+  { user: "User", comment: "البوت مع XRP يزيد الأرباح بشكل رائع! الآن عندي دخل ثابت بفضل البوت." },
 ];
+
 // Generate random user ID
 function generateUserId() {
   return Math.random().toString(36).substr(2, 4).toUpperCase();
@@ -1216,7 +1198,7 @@ function createCommentElement(userId, commentText, timestamp) {
   commentDiv.innerHTML = `
     <div class="flex justify-between items-center">
       <span class="text-sm font-medium bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-         User
+         المستخدم 
       </span>
       <span class="text-xs text-purple-400/70" data-timestamp="${timestamp}">
         ${getTimeAgo(timestamp)}
