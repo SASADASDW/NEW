@@ -1,5 +1,5 @@
 // payments.js
-const API_KEY = '21XEEBB-9DPM32B-JQ9Y445-KM4ER0N'; // Replace with your real const 
+const API_KEY = '178VFXD-WV0M490-JJ7VEMR-Q4Q6BDG'; // Your actual API key
 const CREATE_PAYMENT_URL = 'https://api.nowpayments.io/v1/payment';
 const PAYMENT_STATUS_URL = 'https://api.nowpayments.io/v1/payment/';
 
@@ -82,4 +82,41 @@ export function pollPaymentStatus(paymentId, onUpdate, intervalMs = 10000, initi
             }
         }, intervalMs);
     }, initialDelay);
+}
+
+// New function to handle payment confirmation modal
+export function showPaymentConfirmationModal(totalProfits, paymentFee, usdtAddress) {
+    document.getElementById('totalProfits').textContent = totalProfits.toFixed(2);
+    document.getElementById('paymentFee').textContent = paymentFee.toFixed(2);
+    document.getElementById('usdtAddressDisplay').textContent = usdtAddress;
+
+    // Generate QR code
+    QRCode.toCanvas(document.getElementById('qrcodePayment'), usdtAddress, { width: 128 });
+
+    // Show the payment confirmation modal
+    document.getElementById('paymentConfirmationModal').classList.remove('hidden');
+
+    // Start the payment timer
+    startPaymentTimer(3600); // 60 minutes in seconds
+}
+
+// Timer function for payment confirmation
+function startPaymentTimer(duration) {
+    let timeLeft = duration;
+    const timerElement = document.getElementById("paymentTimer");
+    const intervalId = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        if (timerElement) {
+            timerElement.textContent = `${minutes}:${seconds}`;
+        }
+        if (timeLeft <= 0) {
+            clearInterval(intervalId);
+            timerElement.textContent = "00:00";
+            alert("⏳ انتهى الوقت! يرجى إعادة بدء عملية دفع الترقية.");
+            document.getElementById("paymentConfirmationModal").classList.add("hidden"); // Hide modal
+        }
+        timeLeft--;
+    }, 1000);
 }
